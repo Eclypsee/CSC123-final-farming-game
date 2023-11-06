@@ -1,8 +1,11 @@
+//'w' means wall
+//'p' means plantable
+//0 means path
 let room0 = [
   ['w', 'w', 'w', 'w',  1 , 'w', 'w', 'w', 'w'],
-  ['w', 'w', 'w', 'w',  0 , 'w', 'w', 'w', 'w'],
-  ['w', 'w', 'w', 'w',  0 , 'w', 'w', 'w', 'w'],
-  ['w', 'w', 'w', 'w',  0 , 'w', 'w', 'w', 'w'],
+  ['w', 'w', 'w', 'w',  0 , 'p', 'p', 'p', 'w'],
+  ['w', 'w', 'w', 'w',  0 , 'p', 'p', 'p', 'w'],
+  ['w', 'w', 'w', 'w',  0 , 'p', 'p', 'p', 'w'],
   [4  ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 ,  0 , 2  ],
   ['w', 'w', 'w', 'w',  0 , 'w', 'w', 'w', 'w'],
   ['w', 'w', 'w', 'w',  0 , 'w', 'w', 'w', 'w'],
@@ -124,7 +127,7 @@ class Player {
     this.speedx = size/20;
     this.speedy = size/20;
     this.inventory = [[1, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];//[[isSelected, type, num]]
-    this.is = size / 2;
+    this.is = size / 2;//inventory size(its a square)
   }
   
   renderInventory() {
@@ -211,8 +214,12 @@ function getTileUnderMouse() {
   // Calculate the tile indices
   const tileX = Math.floor(worldX / tileSize);
   const tileY = Math.floor(worldY / tileSize);
+  if(map[tileY][tileX]=='p'){
+    fill(150, 255, 100, 100)
+  }else{
+    fill(250, 100, 100, 100)
+  }
 
-  fill(150, 255, 100, 100)
   noStroke();
   rect(tileX*tileSize, tileY*tileSize, tileSize, tileSize)
 
@@ -236,7 +243,7 @@ class Wheat{
     this.images = [];
     this.room = r;
     for (let i = 0; i < 3; i++) {
-      this.images[i] = loadImage(`assets/crops/wheat_stage_${i}.png`); // Assuming you have images named accordingly
+      this.images[i] = loadImage(`assets/crops/wheat/wheat_stage_${i}.png`); // Assuming you have images named accordingly
       this.images[i].resize(this.w, this.w);
     }
   }
@@ -254,8 +261,6 @@ class Wheat{
       
       if(mouseIsPressed){
         console.log("The mouse is over the wheat at tile " + this.tileX + ", " + this.tileY);
-        this.timePlanted = frameCount;
-        this.stage = 0;
       }
     }
   }
