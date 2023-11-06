@@ -13,28 +13,28 @@ function handleTeletiles(t) {
     else if (t === 'o' && map === room4) { map = room0; p.x = tileSize; curImg = homeImg; }
   }
   
-  function getTileUnderMouse() {
-    // Calculate the position of the mouse in the world space
-    const worldX = mouseX - visualViewport.width / 2 + p.x + p.w / 2;
-    const worldY = mouseY - visualViewport.height / 2 + p.y + p.h / 2;
-    
-    // Calculate the tile indices
-    const tileX = Math.floor(worldX / tileSize);
-    const tileY = Math.floor(worldY / tileSize);
-    if(map[tileY][tileX]=='p'){
-      fill(150, 255, 100, 100)
-    }else{
-      fill(250, 100, 100, 100)
-    }
+function getTileUnderMouse() {
+  // Calculate the position of the mouse in the world space
+  const worldX = mouseX - visualViewport.width / 2 + p.x + p.w / 2;
+  const worldY = mouseY - visualViewport.height / 2 + p.y + p.h / 2;
   
-    noStroke();
-    rect(tileX*tileSize, tileY*tileSize, tileSize, tileSize)
-  
-    // Return the tile coordinates
-    return { tileX, tileY };
+  // Calculate the tile indices
+  const tileX = Math.floor(worldX / tileSize);
+  const tileY = Math.floor(worldY / tileSize);
+  if(map[tileY][tileX]=='p'){
+    fill(150, 255, 100, 100)
+  }else{
+    fill(250, 100, 100, 100)
   }
-  
-  function mouseClicked() {
-    console.log("click")
-    mouseIsClicked = true;
-  }
+
+  noStroke();
+  rect(tileX*tileSize, tileY*tileSize, tileSize, tileSize)
+
+  // Return the tile coordinates
+  return { tileX, tileY };
+}
+
+function mouseClicked() {
+  console.log("click")
+  mouseIsClicked = true;
+}
