@@ -10,6 +10,7 @@ function draw() {
     curImg.resize(room0[0].length*tileSize, room0.length*tileSize);
     image(curImg, 0, 0);
     drawGrid();
+    if(state==GAME_STATE)getTileUnderMouse(true);
     p.show();
     w.update();
     if(w.room == map){
@@ -20,7 +21,6 @@ function draw() {
     pig.render();
     bee.collision();
     bee.render();
-    if(state==GAME_STATE)getTileUnderMouse(true);
 
     //dialogue state
     if(state == DIALOGUE_STATE){

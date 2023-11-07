@@ -17,7 +17,9 @@ let curImg;
 let playerImg;
 let dialogueImg;
 let pigImg;
+let pigSelectImg;
 let beeImg;
+let beeSelectImg;
 
 const DIALOGUE_STATE = 192836;
 const GAME_STATE = 927363;
@@ -36,6 +38,8 @@ function preload() {
   dialogueImg = loadImage('assets/dialogue.png')
   pigImg = loadImage('assets/NPC/pig.png')
   beeImg = loadImage('assets/NPC/bee.png')
+  beeSelectImg = loadImage('assets/NPC/bee_select.png')
+  pigSelectImg = loadImage('assets/NPC/pig_select.png')
   curImg = homeImg;
 }
 

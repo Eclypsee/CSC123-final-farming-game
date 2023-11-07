@@ -135,12 +135,15 @@ class Pig{
     let mouseTile = getTileUnderMouse(false);
     // Check if the tile under the mouse is the same as the wheat's tile
     if ((mouseTile.tileX === this.tileX || mouseTile.tileX === this.tileX+1)&&(mouseTile.tileY === this.tileY||mouseTile.tileY === this.tileY+1)&&state!=DIALOGUE_STATE) {
+      this.image = pigSelectImg;
       if(mouseIsClicked){
         state = DIALOGUE_STATE;
         NPC_dialogue = PIG;
         mouseIsClicked = false;
       }
-    }
+    }else{
+    this.image = pigImg;
+    } 
   }
   }
   render(){
@@ -167,11 +170,14 @@ class Bee{
     if(this.room == map){
     let mouseTile = getTileUnderMouse(false);
     if (mouseTile.tileX === this.tileX&&mouseTile.tileY === this.tileY&&state!=DIALOGUE_STATE) {
+      this.image = beeSelectImg;
       if(mouseIsClicked){
         state = DIALOGUE_STATE;
         NPC_dialogue = BEE;
         mouseIsClicked = false;
       }
+    }else{
+      this.image = beeImg;
     }
   }
   }
