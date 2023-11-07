@@ -131,6 +131,7 @@ class Pig{
     this.room = r;
   }
   collision(){
+    if(this.room == map){
     let mouseTile = getTileUnderMouse(false);
     // Check if the tile under the mouse is the same as the wheat's tile
     if ((mouseTile.tileX === this.tileX || mouseTile.tileX === this.tileX+1)&&(mouseTile.tileY === this.tileY||mouseTile.tileY === this.tileY+1)&&state!=DIALOGUE_STATE) {
@@ -140,6 +141,7 @@ class Pig{
         mouseIsClicked = false;
       }
     }
+  }
   }
   render(){
     if(this.room == map){
@@ -162,6 +164,7 @@ class Bee{
     this.hoverAngle = 0; // Starting angle for the hover effect
   }
   collision(){
+    if(this.room == map){
     let mouseTile = getTileUnderMouse(false);
     if (mouseTile.tileX === this.tileX&&mouseTile.tileY === this.tileY&&state!=DIALOGUE_STATE) {
       if(mouseIsClicked){
@@ -170,6 +173,7 @@ class Bee{
         mouseIsClicked = false;
       }
     }
+  }
   }
   render(){
     if (this.room == map) {
