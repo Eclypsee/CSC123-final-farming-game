@@ -118,7 +118,7 @@ function mouseClicked() {
   mouseIsClicked = true;
   let mouseTile = getTileUnderMouse();
   let selectedSlot = p.inventory.find(slot => slot[0] === 1);
-  if (selectedSlot && selectedSlot[1] === wheatSeedImg && map[mouseTile.tileY][mouseTile.tileX] == 'p') { // Assuming type 1 is the seed
+  if (selectedSlot && selectedSlot[1] === wheatSeedImg && map[mouseTile.tileY][mouseTile.tileX] == 'p'&&planting) { // Assuming type 1 is the seed
     if (selectedSlot[2] > 0) {
       wheats.push(new Wheat(tileSize, mouseTile.tileX, mouseTile.tileY, map));
       selectedSlot[2]--; // Use one seed from inventory

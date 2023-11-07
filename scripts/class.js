@@ -78,7 +78,7 @@ collides(x, y) {
     this.selectInventory();
   }
   harvest(crop) {
-    if (crop.harvestable) {
+    if (crop.harvestable&&harvesting) {
       // Add 2 seeds (assuming type 1 represents seeds) to inventory
       this.addToInventory(crop.seedImg, 2);
       // Add 1 wheat crop (assuming type 2 represents wheat crops) to inventory
