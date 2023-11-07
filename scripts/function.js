@@ -13,7 +13,7 @@ function handleTeletiles(t) {
     else if (t === 'o' && map === room4) { map = room0; p.x = tileSize; curImg = homeImg; }
   }
   
-function getTileUnderMouse() {
+function getTileUnderMouse(show) {
   // Calculate the position of the mouse in the world space
   const worldX = mouseX - visualViewport.width / 2 + p.x + p.w / 2;
   const worldY = mouseY - visualViewport.height / 2 + p.y + p.h / 2;
@@ -21,14 +21,15 @@ function getTileUnderMouse() {
   // Calculate the tile indices
   const tileX = Math.floor(worldX / tileSize);
   const tileY = Math.floor(worldY / tileSize);
-  if(map[tileY][tileX]=='p'){
-    fill(150, 255, 100, 100)
-  }else{
-    fill(250, 100, 100, 100)
+  if(show){
+    if(map[tileY][tileX]=='p'){
+      fill(150, 255, 100, 100)
+    }else{
+      fill(250, 100, 100, 100)
+    }
+    noStroke();
+    rect(tileX*tileSize, tileY*tileSize, tileSize, tileSize)
   }
-
-  noStroke();
-  rect(tileX*tileSize, tileY*tileSize, tileSize, tileSize)
 
   // Return the tile coordinates
   return { tileX, tileY };
@@ -37,4 +38,33 @@ function getTileUnderMouse() {
 function mouseClicked() {
   console.log("click")
   mouseIsClicked = true;
+}
+
+function drawGrid(){
+  strokeWeight(1);
+  stroke(0);
+  for (let y = 0; y < map.length; y++) {
+    for (let x = 0; x < map[y].length; x++) {
+      fill(map[y][x] == 'w' ? [200, 200, 200, 0] : [255, 255, 255, 0]);
+      rect(x * tileSize, y * tileSize, tileSize, tileSize);
+    }
+  }
+} 
+
+function renderDialogue(dialogue){
+  dialogueImg.resize(room0.length*tileSize*3/5, room0.length*tileSize*1/5);
+  image(dialogueImg, p.x-room0[0].length*tileSize*3/10+p.w/2, p.y+1.2*tileSize);
+  textAlign(CENTER, CENTER);
+  textFont('retro', tileSize/2.5);
+  fill(0);
+  stroke(255);
+  text(dialogue[dialogue_index], p.x+p.w/2, p.y+1.2*tileSize*1.65);
+  if(mouseIsClicked){
+    dialogue_index++;
+    mouseIsClicked = false;
+  }
+  if(dialogue_index==dialogue.length){
+    state = GAME_STATE;
+    dialogue_index = 0;
+  }
 }

@@ -101,7 +101,7 @@ class Wheat{
     
   }
   collision(){
-    let mouseTile = getTileUnderMouse();
+    let mouseTile = getTileUnderMouse(false);
     // Check if the tile under the mouse is the same as the wheat's tile
     if (mouseTile.tileX === this.tileX && mouseTile.tileY === this.tileY) {
       if(mouseIsClicked){
@@ -115,5 +115,76 @@ class Wheat{
     let y = this.tileY * tileSize;
     if(this.stage>=0&&this.stage<3)
     image(this.images[this.stage], x, y, this.w, this.w);
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class Pig{
+  constructor(size, tx, ty, r){
+    this.tileX = tx;
+    this.tileY = ty;//the tile x and y on the map arraw defined in the top
+    this.size = size;
+    this.image = pigImg;
+    this.room = r;
+  }
+  collision(){
+    let mouseTile = getTileUnderMouse(false);
+    // Check if the tile under the mouse is the same as the wheat's tile
+    if ((mouseTile.tileX === this.tileX || mouseTile.tileX === this.tileX+1)&&(mouseTile.tileY === this.tileY||mouseTile.tileY === this.tileY+1)&&state!=DIALOGUE_STATE) {
+      if(mouseIsClicked){
+        state = DIALOGUE_STATE;
+        NPC_dialogue = PIG;
+        mouseIsClicked = false;
+      }
+    }
+  }
+  render(){
+    if(this.room == map){
+    this.image.resize(this.size, this.size);
+    image(this.image, this.tileX*tileSize, this.tileY*tileSize);
+    }
+  }
+}
+
+
+class Bee{
+  constructor(size, tx, ty, r){
+    this.tileX = tx;
+    this.tileY = ty;//the tile x and y on the map arraw defined in the top
+    this.size = size;
+    this.image = beeImg;
+    this.room = r;
+    this.hoverHeight = tileSize/4; // Max hover height/depth
+    this.hoverSpeed = 0.05; // Speed of the hover effect
+    this.hoverAngle = 0; // Starting angle for the hover effect
+  }
+  collision(){
+    let mouseTile = getTileUnderMouse(false);
+    if (mouseTile.tileX === this.tileX&&mouseTile.tileY === this.tileY&&state!=DIALOGUE_STATE) {
+      if(mouseIsClicked){
+        state = DIALOGUE_STATE;
+        NPC_dialogue = BEE;
+        mouseIsClicked = false;
+      }
+    }
+  }
+  render(){
+    if (this.room == map) {
+      // Calculate the hover effect
+      let hoverY = this.tileY * tileSize*0.7 + sin(this.hoverAngle) * this.hoverHeight;
+      this.hoverAngle += this.hoverSpeed; // Increment the angle to continue the hover effect
+
+      // Resize the image and draw it at the 'hovering' position
+      this.image.resize(this.size, this.size);
+      image(this.image, this.tileX * tileSize, hoverY);
+
+      // Optionally reset the hover angle to prevent it from increasing indefinitely
+      if (this.hoverAngle > TWO_PI) {
+        this.hoverAngle -= TWO_PI;
+      }
+    }
   }
 }

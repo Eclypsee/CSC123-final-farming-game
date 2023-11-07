@@ -11,3 +11,8 @@ video{
     
     display: none;
 }
+@font-face {
+    font-family: 'retro';
+    src: URL('assets/VT323/VT323-Regular.ttf') format('truetype');
+    
+  }
