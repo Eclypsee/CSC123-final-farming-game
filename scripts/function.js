@@ -22,11 +22,7 @@ function getTileUnderMouse(show) {
   const tileX = Math.floor(worldX / tileSize);
   const tileY = Math.floor(worldY / tileSize);
   if(show){
-    if(map[tileY][tileX]=='p'){
-      fill(150, 255, 100, 100)
-    }else{
-      fill(250, 100, 100, 100)
-    }
+    fill(150, 255, 100, 100)
     noStroke();
     rect(tileX*tileSize, tileY*tileSize, tileSize, tileSize)
   }
