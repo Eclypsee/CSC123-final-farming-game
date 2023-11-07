@@ -1,5 +1,6 @@
 
 function draw() {
+  
   resizeCanvas(visualViewport.width, visualViewport.height);
   //move MUST be before translate
   if(state == GAME_STATE){
@@ -29,7 +30,7 @@ function draw() {
         renderDialogue(pig_dialogue)
       }
     }
-    
+    mouseIsClicked = false;
 
 }
 
