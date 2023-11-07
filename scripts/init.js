@@ -23,6 +23,10 @@ let beeImg;
 let beeSelectImg;
 let wheatImg;
 let wheatSeedImg;
+let harvesterImg;
+let harvesterSelectImg;
+let planterImg;
+let planterSelectImg;
 
 const DIALOGUE_STATE = 192836;
 const GAME_STATE = 927363;
@@ -45,6 +49,13 @@ function preload() {
   pigSelectImg = loadImage('assets/NPC/pig_select.png')
   wheatImg = loadImage('assets/crops/wheat/wheat.png')
   wheatSeedImg = loadImage('assets/crops/wheat/wheat_seed.png')
+
+  harvesterImg = loadImage('assets/sickle.png')
+  harvesterSelectImg = loadImage('assets/sickle_select.png')
+  planterImg = loadImage('assets/shovel.png')
+  planterSelectImg = loadImage('assets/shovel_select.png')
+
+
   curImg = homeImg;
 }
 
