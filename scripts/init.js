@@ -11,9 +11,11 @@ let w;
 let pig;
 let bee;
 let wheats = [];
+let potatoes = [];
 
 let planting = false;
 let harvesting = false;
+let shoveling = false;
 
 let homeImg;
 let barnImg;
@@ -30,6 +32,8 @@ let harvesterImg;
 let harvesterSelectImg;
 let planterImg;
 let planterSelectImg;
+let shovelerImg;
+let shovelerSelectImg;
 
 const DIALOGUE_STATE = 192836;
 const GAME_STATE = 927363;
@@ -57,6 +61,8 @@ function preload() {
   harvesterSelectImg = loadImage('assets/sickle_select.png')
   planterImg = loadImage('assets/planter.png')
   planterSelectImg = loadImage('assets/planter_select.png')
+  shovelerImg = loadImage('assets/shovel.png')
+  shovelerSelectImg = loadImage('assets/shovel_select.png')
 
 
   curImg = homeImg;

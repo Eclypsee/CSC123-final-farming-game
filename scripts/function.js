@@ -77,13 +77,13 @@ function planter(){
   const worldX = mouseX - visualViewport.width / 2 + p.x + p.w / 2;
   const worldY = mouseY - visualViewport.height / 2 + p.y + p.h / 2;
   let x = p.x+visualViewport.width/2-tileSize/1.5;
-  let y = p.y-tileSize/2.5;
+  let y = p.y-tileSize;
   let s = tileSize/1.5;
   strokeWeight(5);
   stroke(130, 130, 220);
   fill(170, 180, 220, 240)
   circle(x+s/2, y+s/2, s-10);
-  if(mouseIsClicked&&worldX>x&&worldX<x+s&&worldY>y&&worldY<y+s){planting = !planting;if(harvesting)harvesting=false}
+  if(mouseIsClicked&&worldX>x&&worldX<x+s&&worldY>y&&worldY<y+s){planting = !planting;harvesting=false;shoveling=false;}
   if(worldX>x&&worldX<x+s&&worldY>y&&worldY<y+s||planting){
     planterSelectImg.resize(s, s);
     image(planterSelectImg, x, y);
@@ -97,13 +97,13 @@ function harvester(){
   const worldX = mouseX - visualViewport.width / 2 + p.x + p.w / 2;
   const worldY = mouseY - visualViewport.height / 2 + p.y + p.h / 2;
   let x = p.x+visualViewport.width/2-tileSize/1.5;
-  let y = p.y+tileSize/2.5;
+  let y = p.y+tileSize;
   let s = tileSize/1.5;
   strokeWeight(5);
   stroke(130, 130, 220);
   fill(170, 180, 220, 240)
   circle(x+s/2, y+s/2, s-10);
-  if(mouseIsClicked&&worldX>x&&worldX<x+s&&worldY>y&&worldY<y+s){harvesting = !harvesting;if(planting)planting=false}
+  if(mouseIsClicked&&worldX>x&&worldX<x+s&&worldY>y&&worldY<y+s){harvesting = !harvesting;planting=false;shoveling=false;}
   if(worldX>x&&worldX<x+s&&worldY>y&&worldY<y+s||harvesting){
     harvesterSelectImg.resize(s, s);
     image(harvesterSelectImg, x, y);
@@ -113,15 +113,70 @@ function harvester(){
   }
 }
 
+function shoveler(){
+  const worldX = mouseX - visualViewport.width / 2 + p.x + p.w / 2;
+  const worldY = mouseY - visualViewport.height / 2 + p.y + p.h / 2;
+  let x = p.x+visualViewport.width/2-tileSize/1.5;
+  let y = p.y;
+  let s = tileSize/1.5;
+  strokeWeight(5);
+  stroke(130, 130, 220);
+  fill(170, 180, 220, 240)
+  circle(x+s/2, y+s/2, s-10);
+  if(mouseIsClicked&&worldX>x&&worldX<x+s&&worldY>y&&worldY<y+s){shoveling = !shoveling;planting=false;harvesting=false;}
+  if(worldX>x&&worldX<x+s&&worldY>y&&worldY<y+s||shoveling){
+    shovelerSelectImg.resize(s, s);
+    image(shovelerSelectImg, x, y);
+  }else{
+    shovelerImg.resize(s, s);
+    image(shovelerImg, x, y);
+  }
+}
+
+
 function mouseClicked() {
-  console.log("click")
+  console.log("click");
   mouseIsClicked = true;
+  removeCropIfShoveling(wheats);
+  //removeCropIfShoveling(carrots);
+  //removeCropIfShoveling(potatoes);
   let mouseTile = getTileUnderMouse();
-  let selectedSlot = p.inventory.find(slot => slot[0] === 1);
-  if (selectedSlot && selectedSlot[1] === wheatSeedImg && map[mouseTile.tileY][mouseTile.tileX] == 'p'&&planting) { // Assuming type 1 is the seed
-    if (selectedSlot[2] > 0) {
-      wheats.push(new Wheat(tileSize, mouseTile.tileX, mouseTile.tileY, map));
+  
+  // Check if the clicked tile is plantable ground and the player is in planting mode
+  if (map[mouseTile.tileY][mouseTile.tileX] == 'p' && planting) {
+    plantCrops(wheats, wheatSeedImg, Wheat)
+    
+  }
+}
+
+function plantCrops(cropArray, cropSeedImg, clas){
+  let mouseTile = getTileUnderMouse();
+  let selectedSlot = p.inventory.find(slot => slot[0] === 1); // Assuming type 1 is the seed
+  let tileHasCrop = cropArray.some(asdf => asdf.tileX === mouseTile.tileX && asdf.tileY === mouseTile.tileY);
+
+  // If there's no wheat and the selected slot has wheat seeds, plant new wheat
+  if (!tileHasCrop && selectedSlot && selectedSlot[1] === cropSeedImg) {
+    if (selectedSlot[2] > 0) { // Check if there are seeds available
+      cropArray.push(new clas(tileSize, mouseTile.tileX, mouseTile.tileY, map));
       selectedSlot[2]--; // Use one seed from inventory
     }
+  }
+}
+
+function removeCropIfShoveling(cropArray) {
+  let mouseTile = getTileUnderMouse();
+  
+  // Check if the player is shoveling
+  if (shoveling) {
+    // Go through each crop array
+      for (let i = cropArray.length - 1; i >= 0; i--) {
+        let crop = cropArray[i];
+        // Check if the crop is on the current tile
+        if (crop.tileX === mouseTile.tileX && crop.tileY === mouseTile.tileY) {
+          cropArray.splice(i, 1); // Remove the crop from the array
+          break; // Break out of the loop after removing a crop
+        }
+      }
+
   }
 }

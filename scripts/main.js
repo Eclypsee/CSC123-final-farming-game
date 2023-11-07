@@ -18,6 +18,7 @@ function draw() {
     bee.render();
     planter();
     harvester();
+    shoveler();
     p.show();
 
     //dialogue state
