@@ -31,19 +31,6 @@ function getTileUnderMouse(show) {
   return { tileX, tileY };
 }
 
-function mouseClicked() {
-  console.log("click")
-  mouseIsClicked = true;
-  let mouseTile = getTileUnderMouse();
-  let selectedSlot = p.inventory.find(slot => slot[0] === 1);
-  if (selectedSlot && selectedSlot[1] === wheatSeedImg && map[mouseTile.tileY][mouseTile.tileX] == 'p') { // Assuming type 1 is the seed
-    if (selectedSlot[2] > 0) {
-      wheats.push(new Wheat(tileSize, mouseTile.tileX, mouseTile.tileY, map));
-      selectedSlot[2]--; // Use one seed from inventory
-    }
-  }
-}
-
 function drawGrid(){
   strokeWeight(1);
   stroke(0);
@@ -96,6 +83,7 @@ function planter(){
   stroke(130, 130, 220);
   fill(170, 180, 220, 240)
   circle(x+s/2, y+s/2, s-10);
+  if(mouseIsClicked&&worldX>x&&worldX<x+s&&worldY>y&&worldY<y+s){planting = !planting;if(harvesting)harvesting=false}
   if(worldX>x&&worldX<x+s&&worldY>y&&worldY<y+s||planting){
     planterSelectImg.resize(s, s);
     image(planterSelectImg, x, y);
@@ -115,11 +103,25 @@ function harvester(){
   stroke(130, 130, 220);
   fill(170, 180, 220, 240)
   circle(x+s/2, y+s/2, s-10);
+  if(mouseIsClicked&&worldX>x&&worldX<x+s&&worldY>y&&worldY<y+s){harvesting = !harvesting;if(planting)planting=false}
   if(worldX>x&&worldX<x+s&&worldY>y&&worldY<y+s||harvesting){
     harvesterSelectImg.resize(s, s);
     image(harvesterSelectImg, x, y);
   }else{
     harvesterImg.resize(s, s);
     image(harvesterImg, x, y);
+  }
+}
+
+function mouseClicked() {
+  console.log("click")
+  mouseIsClicked = true;
+  let mouseTile = getTileUnderMouse();
+  let selectedSlot = p.inventory.find(slot => slot[0] === 1);
+  if (selectedSlot && selectedSlot[1] === wheatSeedImg && map[mouseTile.tileY][mouseTile.tileX] == 'p') { // Assuming type 1 is the seed
+    if (selectedSlot[2] > 0) {
+      wheats.push(new Wheat(tileSize, mouseTile.tileX, mouseTile.tileY, map));
+      selectedSlot[2]--; // Use one seed from inventory
+    }
   }
 }
