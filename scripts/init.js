@@ -12,6 +12,9 @@ let pig;
 let bee;
 let wheats = [];
 
+let planting = false;
+let harvesting = false;
+
 let homeImg;
 let barnImg;
 let curImg;

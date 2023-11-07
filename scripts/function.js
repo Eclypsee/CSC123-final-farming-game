@@ -90,13 +90,13 @@ function planter(){
   const worldX = mouseX - visualViewport.width / 2 + p.x + p.w / 2;
   const worldY = mouseY - visualViewport.height / 2 + p.y + p.h / 2;
   let x = p.x+visualViewport.width/2-tileSize/1.5;
-  let y = p.y-tileSize/2;
+  let y = p.y-tileSize/2.5;
   let s = tileSize/1.5;
   strokeWeight(5);
   stroke(130, 130, 220);
   fill(170, 180, 220, 240)
   circle(x+s/2, y+s/2, s-10);
-  if(worldX>x&&worldX<x+s&&worldY>y&&worldY<y+s){
+  if(worldX>x&&worldX<x+s&&worldY>y&&worldY<y+s||planting){
     planterSelectImg.resize(s, s);
     image(planterSelectImg, x, y);
   }else{
@@ -109,13 +109,13 @@ function harvester(){
   const worldX = mouseX - visualViewport.width / 2 + p.x + p.w / 2;
   const worldY = mouseY - visualViewport.height / 2 + p.y + p.h / 2;
   let x = p.x+visualViewport.width/2-tileSize/1.5;
-  let y = p.y+tileSize/2;
+  let y = p.y+tileSize/2.5;
   let s = tileSize/1.5;
   strokeWeight(5);
   stroke(130, 130, 220);
   fill(170, 180, 220, 240)
   circle(x+s/2, y+s/2, s-10);
-  if(worldX>x&&worldX<x+s&&worldY>y&&worldY<y+s){
+  if(worldX>x&&worldX<x+s&&worldY>y&&worldY<y+s||harvesting){
     harvesterSelectImg.resize(s, s);
     image(harvesterSelectImg, x, y);
   }else{
