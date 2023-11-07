@@ -61,7 +61,6 @@ function renderDialogue(dialogue){
 }
 
 function updateWheat(){
-  w.update();
   for (let i = wheats.length - 1; i >= 0; i--) {
     wheats[i].update();
     if(wheats[i].room == map){
