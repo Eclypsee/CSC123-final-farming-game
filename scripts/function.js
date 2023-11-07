@@ -34,6 +34,14 @@ function getTileUnderMouse(show) {
 function mouseClicked() {
   console.log("click")
   mouseIsClicked = true;
+  let mouseTile = getTileUnderMouse();
+  let selectedSlot = p.inventory.find(slot => slot[0] === 1);
+  if (selectedSlot && selectedSlot[1] === wheatSeedImg && map[mouseTile.tileY][mouseTile.tileX] == 'p') { // Assuming type 1 is the seed
+    if (selectedSlot[2] > 0) {
+      wheats.push(new Wheat(tileSize, mouseTile.tileX, mouseTile.tileY, map));
+      selectedSlot[2]--; // Use one seed from inventory
+    }
+  }
 }
 
 function drawGrid(){
@@ -51,7 +59,7 @@ function renderDialogue(dialogue){
   dialogueImg.resize(room0.length*tileSize*3/5, room0.length*tileSize*1/5);
   image(dialogueImg, p.x-room0[0].length*tileSize*3/10+p.w/2, p.y+1.2*tileSize);
   textAlign(CENTER, CENTER);
-  textFont('retro', tileSize/2.5);
+  textFont('retro', tileSize/4);
   fill(0);
   stroke(255);
   text(dialogue[dialogue_index], p.x+p.w/2, p.y+1.2*tileSize*1.65);

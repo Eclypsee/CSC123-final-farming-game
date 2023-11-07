@@ -13,9 +13,10 @@ class Player {
   
   renderInventory() {
     stroke(130, 130, 220);
-    textSize(this.is / 4);
+    textSize(this.is / 3);
     textAlign(LEFT, TOP);
     this.inventory.forEach((slot, k) => {
+      textFont('retro');
       strokeWeight(8);
       fill(slot[0] !== 1 ? [170, 180, 220, 240] : [230, 180, 220, 240]);
       let slotX = this.x + this.w / 2 - this.is * 3 + k * this.is;
@@ -24,6 +25,11 @@ class Player {
       strokeWeight(1);
       fill(255);
       text(k + 1, slotX + 5, slotY + 5);
+      if(slot[1]!=0&&slot[1]!=null&&slot[2]!=0){
+        slot[1].resize(this.is, this.is);
+        image(slot[1], slotX, slotY)
+      }
+      if(slot[2]>0)text(slot[2], slotX + this.is - 20, slotY + this.is - 25);
     });
   }
   
@@ -71,6 +77,39 @@ collides(x, y) {
     this.renderInventory();
     this.selectInventory();
   }
+  harvest(crop) {
+    if (crop.harvestable) {
+      // Add 2 seeds (assuming type 1 represents seeds) to inventory
+      this.addToInventory(crop.seedImg, 2);
+      // Add 1 wheat crop (assuming type 2 represents wheat crops) to inventory
+      this.addToInventory(crop.img, 1);
+      // Remove the wheat from the room
+      return true; // Return true to indicate the wheat has been harvested
+    }
+    return false; // Return false if the wheat is not harvestable
+  }
+
+  addToInventory(type, amount) {
+    for (let slot of this.inventory) {
+      // Assuming the second index (slot[1]) is the type and the third (slot[2]) is the quantity
+      if (slot[1] === type) {
+        slot[2] += amount;
+        return;
+      }
+    }
+    // If the type isn't found, find an empty slot (assuming 0 is empty)
+    for (let slot of this.inventory) {
+      if (slot[1] === 0) {
+        slot[1] = type;
+        slot[2] = amount;
+        return;
+      }
+    }
+  }
+
+  plant(){
+    
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -79,6 +118,8 @@ collides(x, y) {
 
 class Wheat{
   constructor(size, tx, ty, r){
+    this.img = wheatImg;
+    this.seedImg = wheatSeedImg;
     this.stage = 0;
     this.tileX = tx;
     this.tileY = ty;//the tile x and y on the map arraw defined in the top
@@ -88,6 +129,7 @@ class Wheat{
     this.w = size;
     this.images = [];
     this.room = r;
+    this.harvestable = false;
     for (let i = 0; i < 3; i++) {
       this.images[i] = loadImage(`assets/crops/wheat/wheat_stage_${i}.png`); // Assuming you have images named accordingly
       this.images[i].resize(this.w, this.w);
@@ -97,18 +139,21 @@ class Wheat{
     this.timeElapsed = frameCount - this.timePlanted;
     if (this.timeElapsed/this.growthTime==1) this.stage = 0;
     if (this.timeElapsed/this.growthTime==2) this.stage = 1;
-    if (this.timeElapsed/this.growthTime==3) this.stage = 2;
+    if (this.timeElapsed/this.growthTime==3){this.stage = 2; this.harvestable = true;}
     
   }
-  collision(){
-    let mouseTile = getTileUnderMouse(false);
+  collision(player){
+    let mouseTile = getTileUnderMouse();
     // Check if the tile under the mouse is the same as the wheat's tile
     if (mouseTile.tileX === this.tileX && mouseTile.tileY === this.tileY) {
-      if(mouseIsClicked){
-        console.log("The mouse is over the wheat at tile " + this.tileX + ", " + this.tileY);
-        mouseIsClicked = false;
+      if(mouseIsPressed && this.harvestable){
+        if(player.harvest(this)) {
+          // Remove wheat from the array or set it to null
+          return true;
+        }
       }
     }
+    return false;
   }
   render(){
     let x = this.tileX * tileSize;
@@ -154,6 +199,9 @@ class Pig{
   }
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class Bee{
   constructor(size, tx, ty, r){
