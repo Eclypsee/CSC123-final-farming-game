@@ -55,8 +55,8 @@ function preload() {
 
   harvesterImg = loadImage('assets/sickle.png')
   harvesterSelectImg = loadImage('assets/sickle_select.png')
-  planterImg = loadImage('assets/shovel.png')
-  planterSelectImg = loadImage('assets/shovel_select.png')
+  planterImg = loadImage('assets/planter.png')
+  planterSelectImg = loadImage('assets/planter_select.png')
 
 
   curImg = homeImg;
