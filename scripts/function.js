@@ -234,7 +234,7 @@ function drawCoinMeter(){
   coinImg.resize(s, s);
   image(coinImg, x, y)
 
-  textAlign(CENTER, CENTER);
+  textAlign(LEFT, CENTER);
   textFont('retro', tileSize/4);
   fill(255);
   stroke(0);
