@@ -345,3 +345,33 @@ class Bee{
     }
   }
 }
+
+class Merchant{
+  constructor(){
+    this.tileX = 1;
+    this.tileY = 5;//the tile x and y on the map arraw defined in the top
+    this.size = tileSize*3;
+    this.image = merchantImg;
+    this.room = room0;
+  }
+  collision(){
+    if(this.room == map){
+    let mouseTile = getTileUnderMouse(false);
+    // Check if the tile under the mouse is the same as the wheat's tile
+    if (mouseTile.tileX >=this.tileX&&mouseTile.tileX <=this.tileX+3&&mouseTile.tileY >= this.tileY&&mouseTile.tileY<=this.tileY+3&&state!=DIALOGUE_STATE) {
+      this.image = merchantSelectImg;
+      if(mouseIsClicked){
+        mouseIsClicked = false;
+      }
+    }else{
+    this.image = merchantImg;
+    } 
+  }
+  }
+  render(){
+    if(this.room == map){
+    this.image.resize(this.size, this.size);
+    image(this.image, this.tileX*tileSize, this.tileY*tileSize);
+    }
+  }
+}

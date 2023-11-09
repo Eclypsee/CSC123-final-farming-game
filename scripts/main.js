@@ -18,6 +18,8 @@ function draw() {
     pig.render();
     bee.collision();
     bee.render();
+    m.collision();
+    m.render();
     planter();
     harvester();
     shoveler();

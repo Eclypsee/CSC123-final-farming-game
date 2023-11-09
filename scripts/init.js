@@ -14,6 +14,10 @@ let wheats = [];
 let carrots = [];
 let potatoes = [];
 
+let m;
+let merchantImg;
+let merchantSelectImg;
+
 let catHealth = 100;//in percent
 let catIconImg;
 
@@ -69,6 +73,9 @@ function preload() {
   beeSelectImg = loadImage('assets/NPC/bee_select.png')
   pigSelectImg = loadImage('assets/NPC/pig_select.png')
 
+  merchantSelectImg = loadImage('assets/NPC/merchant_select.png')
+  merchantImg = loadImage('assets/NPC/merchant.png')
+
   wheatImg = loadImage('assets/crops/wheat/wheat.png')
   wheatSeedImg = loadImage('assets/crops/wheat/wheat_seed.png')
   carrotImg = loadImage('assets/crops/carrot/carrot.png')
@@ -104,5 +111,7 @@ function setup() {
 
   pig = new Pig(tileSize*2, 6, 6, room0);
   bee = new Bee(tileSize, 3, 1, room0);
+
+  m = new Merchant();
   frameRate(60);
 }
