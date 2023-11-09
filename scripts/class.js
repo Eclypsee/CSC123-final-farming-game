@@ -84,6 +84,7 @@ collides(x, y) {
       // Add 1 wheat crop (assuming type 2 represents wheat crops) to inventory
       this.addToInventory(crop.img, 1);
       // Remove the wheat from the room
+      coins++;
       return true; // Return true to indicate the wheat has been harvested
     }
     return false; // Return false if the wheat is not harvestable

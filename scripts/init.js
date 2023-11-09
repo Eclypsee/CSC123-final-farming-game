@@ -14,6 +14,11 @@ let wheats = [];
 let carrots = [];
 let potatoes = [];
 
+let catHealth = 100;//in percent
+let catIconImg;
+
+let coins = 0;
+
 let planting = false;
 let harvesting = false;
 let shoveling = false;
@@ -41,6 +46,8 @@ let planterImg;
 let planterSelectImg;
 let shovelerImg;
 let shovelerSelectImg;
+
+let coinImg;
 
 const DIALOGUE_STATE = 192836;
 const GAME_STATE = 927363;
@@ -76,6 +83,9 @@ function preload() {
   shovelerImg = loadImage('assets/shovel.png')
   shovelerSelectImg = loadImage('assets/shovel_select.png')
 
+  coinImg = loadImage('assets/coin.png')
+
+  catIconImg = loadImage('assets/NPC/catIcon.png')
 
   curImg = homeImg;
 }

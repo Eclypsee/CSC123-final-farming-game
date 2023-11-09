@@ -21,6 +21,8 @@ function draw() {
     planter();
     harvester();
     shoveler();
+    drawCatHealthBar();
+    drawCoinMeter();
     p.show();
 
     //dialogue state

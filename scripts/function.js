@@ -203,3 +203,40 @@ function removeCropIfShoveling(cropArray) {
 
   }
 }
+
+function drawCatHealthBar(){
+  const worldX = mouseX - visualViewport.width / 2 + p.x + p.w / 2;
+  const worldY = mouseY - visualViewport.height / 2 + p.y + p.h / 2;
+  let x = p.x-visualViewport.width/2+tileSize*1.2;
+  let y = p.y-visualViewport.height/2+tileSize;
+  let s = tileSize;
+  strokeWeight(3);
+  stroke(217, 213, 117);
+  fill(50, 50, 50)
+  rect(x, y-s/3, s*5, s/5);
+
+  fill(140, 35, 18)
+  rect(x, y-s/3, s*5*(0.01*catHealth), s/5);
+
+  catHealth-=0.009;
+  catHealth = constrain(catHealth, 0, 100)
+  catIconImg.resize(tileSize, tileSize)
+  image(catIconImg, x-s/2, y-s/1.5);
+}
+
+function drawCoinMeter(){
+  const worldX = mouseX - visualViewport.width / 2 + p.x + p.w / 2;
+  const worldY = mouseY - visualViewport.height / 2 + p.y + p.h / 2;
+  let x = p.x-visualViewport.width/2+tileSize*1.025;
+  let y = p.y-visualViewport.height/2+tileSize*1.2;
+  let s = tileSize/3;
+
+  coinImg.resize(s, s);
+  image(coinImg, x, y)
+
+  textAlign(CENTER, CENTER);
+  textFont('retro', tileSize/4);
+  fill(255);
+  stroke(0);
+  text(coins, x+tileSize/2.5, y+tileSize*0.175);
+}
