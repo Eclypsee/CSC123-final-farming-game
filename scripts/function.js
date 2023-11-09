@@ -21,7 +21,8 @@ function getTileUnderMouse(show) {
   // Calculate the tile indices
   const tileX = Math.floor(worldX / tileSize);
   const tileY = Math.floor(worldY / tileSize);
-  if(show&&map!=(undefined||null)){
+  if(show&&worldX>0&&worldX<map.length*tileSize&&worldY>0&&worldY<map.length*tileSize){
+    console.log(map)
     if(map[tileY][tileX]=='p'){fill(150, 255, 100, 150)}
     else{fill(255, 150, 100, 150)}
     
