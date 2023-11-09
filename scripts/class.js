@@ -163,6 +163,58 @@ class Wheat{
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+class Carrot{
+  constructor(size, tx, ty, r){
+    this.img = carrotImg;
+    this.seedImg = carrotSeedImg;
+    this.stage = 0;
+    this.tileX = tx;
+    this.tileY = ty;//the tile x and y on the map arraw defined in the top
+    this.growthTime = 10;//600 frames until the next stage
+    this.timePlanted = frameCount;
+    this.timeElapsed;
+    this.w = size;
+    this.images = [];
+    this.room = r;
+    this.harvestable = false;
+    for (let i = 0; i < 3; i++) {
+      this.images[i] = loadImage(`assets/crops/carrot/carrot_stage_${i}.png`); // Assuming you have images named accordingly
+      this.images[i].resize(this.w, this.w);
+    }
+  }
+  update(){
+    this.timeElapsed = frameCount - this.timePlanted;
+    if (this.timeElapsed/this.growthTime==1) this.stage = 0;
+    if (this.timeElapsed/this.growthTime==2) this.stage = 1;
+    if (this.timeElapsed/this.growthTime==3){this.stage = 2; this.harvestable = true;}
+    
+  }
+  collision(player){
+    let mouseTile = getTileUnderMouse();
+    // Check if the tile under the mouse is the same as the wheat's tile
+    if (mouseTile.tileX === this.tileX && mouseTile.tileY === this.tileY) {
+      if(mouseIsPressed && this.harvestable){
+        if(player.harvest(this)) {
+          // Remove wheat from the array or set it to null
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+  render(){
+    let x = this.tileX * tileSize;
+    let y = this.tileY * tileSize;
+    if(this.stage>=0&&this.stage<3)
+    image(this.images[this.stage], x, y, this.w, this.w);
+  }
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 class Potato{
   constructor(size, tx, ty, r){
     this.img = potatoImg;

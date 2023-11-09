@@ -12,6 +12,8 @@ function draw() {
     drawGrid();
     if(state==GAME_STATE)getTileUnderMouse(true);
     updateWheat();
+    updateCarrot();
+    updatePotato();
     pig.collision();
     pig.render();
     bee.collision();

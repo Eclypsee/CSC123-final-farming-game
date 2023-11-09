@@ -71,6 +71,28 @@ function updateWheat(){
     }
   }
 }
+function updateCarrot(){
+  for (let i = carrots.length - 1; i >= 0; i--) {
+    carrots[i].update();
+    if(carrots[i].room == map){
+      carrots[i].render();
+      if(carrots[i].collision(p)){
+        carrots.splice(i, 1); 
+      }
+    }
+  }
+}
+function updatePotato(){
+  for (let i = potatoes.length - 1; i >= 0; i--) {
+    potatoes[i].update();
+    if(potatoes[i].room == map){
+      potatoes[i].render();
+      if(potatoes[i].collision(p)){
+        potatoes.splice(i, 1); 
+      }
+    }
+  }
+}
 
 function planter(){
   const worldX = mouseX - visualViewport.width / 2 + p.x + p.w / 2;
@@ -144,6 +166,8 @@ function mouseClicked() {
   // Check if the clicked tile is plantable ground and the player is in planting mode
   if (map[mouseTile.tileY][mouseTile.tileX] == 'p' && planting) {
     plantCrops(wheats, wheatSeedImg, Wheat)
+    plantCrops(carrots, carrotSeedImg, Carrot)
+    plantCrops(potatoes, potatoSeedImg, Potato)
     
   }
 }
@@ -151,7 +175,7 @@ function mouseClicked() {
 function plantCrops(cropArray, cropSeedImg, clas){
   let mouseTile = getTileUnderMouse();
   let selectedSlot = p.inventory.find(slot => slot[0] === 1); // Assuming type 1 is the seed
-  let tileHasCrop = cropArray.some(asdf => asdf.tileX === mouseTile.tileX && asdf.tileY === mouseTile.tileY);
+  let tileHasCrop = (wheats.some(asdf => asdf.tileX === mouseTile.tileX && asdf.tileY === mouseTile.tileY)||carrots.some(asdf => asdf.tileX === mouseTile.tileX && asdf.tileY === mouseTile.tileY)||potatoes.some(asdf => asdf.tileX === mouseTile.tileX && asdf.tileY === mouseTile.tileY));
 
   // If there's no wheat and the selected slot has wheat seeds, plant new wheat
   if (!tileHasCrop && selectedSlot && selectedSlot[1] === cropSeedImg) {
