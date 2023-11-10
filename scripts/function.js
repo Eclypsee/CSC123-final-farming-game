@@ -242,3 +242,55 @@ function drawCoinMeter(){
   stroke(0);
   text(coins, x+tileSize/2.5, y+tileSize*0.175);
 }
+
+function renderNPCs(){
+    pig.collision();
+    pig.render();
+    bee.collision();
+    bee.render();
+    m.collision();
+    m.render();
+}
+
+function drawToolIcons(){
+    planter();
+    harvester();
+    shoveler();
+}
+
+function updateCrops(){
+    updateWheat();
+    updateCarrot();
+    updatePotato();
+}
+
+function checkDialogueState(){
+  if(state == DIALOGUE_STATE){
+    if(NPC_dialogue == BEE){
+      renderDialogue(bee_dialogue)
+    }else if(NPC_dialogue == PIG){
+      renderDialogue(pig_dialogue)
+    }
+  }
+}
+
+function drawUI(){
+    drawCatHealthBar();
+    drawCoinMeter();
+}
+
+function drawMapBackground(){
+    curImg.resize(room0[0].length*tileSize, room0.length*tileSize);
+    image(curImg, 0, 0);
+    drawGrid();
+}
+
+function checkGameState(){
+  //move MUST be before translate
+  if(state == GAME_STATE){
+    p.move();
+  }
+  translate(visualViewport.width/2 - p.x - p.w/2, visualViewport.height/2 - p.y - p.h/2);
+  drawMapBackground();
+  if(state==GAME_STATE)getTileUnderMouse(true);
+}
