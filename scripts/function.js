@@ -45,13 +45,13 @@ function drawGrid(){
 } 
 
 function renderDialogue(dialogue){
-  dialogueImg.resize(room0.length*tileSize*3/5, room0.length*tileSize*1/5);
-  image(dialogueImg, p.x-room0[0].length*tileSize*3/10+p.w/2, p.y+1.2*tileSize);
+  dialogueImg.resize(visualViewport.width/2, visualViewport.height/4);
+  image(dialogueImg, p.x+p.w/2-visualViewport.width/4, p.y+visualViewport.height/2.8);
   textAlign(CENTER, CENTER);
   textFont('retro', tileSize/4);
   fill(0);
   stroke(255);
-  text(dialogue[dialogue_index], p.x+p.w/2, p.y+1.2*tileSize*1.65);
+  text(dialogue[dialogue_index], p.x+p.w/2, p.y+visualViewport.height/2.15);
   if(mouseIsClicked){
     dialogue_index++;
     mouseIsClicked = false;
