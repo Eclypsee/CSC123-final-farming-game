@@ -244,6 +244,8 @@ function drawCoinMeter(){
 }
 
 function renderNPCs(){
+    well.collision();
+    well.render();
     pig.collision();
     pig.render();
     bee.collision();
@@ -256,6 +258,7 @@ function drawToolIcons(){
     planter();
     harvester();
     shoveler();
+
 }
 
 function updateCrops(){

@@ -18,6 +18,10 @@ let m;
 let merchantImg;
 let merchantSelectImg;
 
+let well;
+let wellImg;
+let wellSelectImg;
+
 let catHealth = 100;//in percent
 let catIconImg;
 
@@ -75,6 +79,9 @@ function preload() {
 
   merchantSelectImg = loadImage('assets/NPC/merchant_select.png')
   merchantImg = loadImage('assets/NPC/merchant.png')
+
+  wellSelectImg = loadImage('assets/well_select.png')
+  wellImg = loadImage('assets/well.png')
 
   wheatImg = loadImage('assets/crops/wheat/wheat.png')
   wheatSeedImg = loadImage('assets/crops/wheat/wheat_seed.png')

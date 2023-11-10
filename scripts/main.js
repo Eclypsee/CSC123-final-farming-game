@@ -17,6 +17,7 @@ function setup() {
   pig = new Pig(tileSize*2, 6, 6, room0);
   bee = new Bee(tileSize, 3, 1, room0);
   m = new Merchant();
+  well = new Well();
   
   frameRate(60);
 }
