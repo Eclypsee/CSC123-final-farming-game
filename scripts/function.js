@@ -161,8 +161,8 @@ function mouseClicked() {
   console.log("click");
   mouseIsClicked = true;
   removeCropIfShoveling(wheats);
-  //removeCropIfShoveling(carrots);
-  //removeCropIfShoveling(potatoes);
+  removeCropIfShoveling(carrots);
+  removeCropIfShoveling(potatoes);
   let mouseTile = getTileUnderMouse();
   
   // Check if the clicked tile is plantable ground and the player is in planting mode
