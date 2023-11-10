@@ -112,7 +112,6 @@ collides(x, y) {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 class Wheat{
   constructor(size, tx, ty, r){
     this.img = wheatImg;
@@ -358,7 +357,7 @@ class Merchant{
     if(this.room == map){
     let mouseTile = getTileUnderMouse(false);
     // Check if the tile under the mouse is the same as the wheat's tile
-    if (mouseTile.tileX >=this.tileX&&mouseTile.tileX <=this.tileX+3&&mouseTile.tileY >= this.tileY&&mouseTile.tileY<=this.tileY+3&&state!=DIALOGUE_STATE) {
+    if (mouseTile.tileX >=this.tileX&&mouseTile.tileX <this.tileX+3&&mouseTile.tileY >= this.tileY&&mouseTile.tileY<this.tileY+3&&state!=DIALOGUE_STATE) {
       this.image = merchantSelectImg;
       if(mouseIsClicked){
         mouseIsClicked = false;
