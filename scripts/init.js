@@ -55,6 +55,8 @@ let planterSelectImg;
 let shovelerImg;
 let shovelerSelectImg;
 
+let playerSpriteSheet;
+
 let coinImg;
 
 const DIALOGUE_STATE = 192836;
@@ -100,6 +102,8 @@ function preload() {
   coinImg = loadImage('assets/coin.png')
 
   catIconImg = loadImage('assets/NPC/catIcon.png')
+
+  playerSpriteSheet = loadImage('assets/playersprite.png')
 
   curImg = homeImg;
 }

@@ -9,8 +9,34 @@ class Player {
     this.speedy = size/20;
     this.inventory = [[1, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];//[[isSelected, type, num]]
     this.is = size / 2;//inventory size(its a square)
+
+    this.isMoving = false;
+    this.spriteSheet = playerSpriteSheet; // Load your sprite sheet here
+    this.spriteWidth = 40; // Width of each sprite frame
+    this.spriteHeight = 56; // Height of each sprite frame
+    this.currentFrame = 0;
+    this.frameCount = 0;
+    this.animationSpeed = 5; // Adjust the speed of the animation
   }
-  
+  displayFrame(frame) {
+    let frameY = frame * this.spriteHeight; // Calculate the Y position of the frame
+    image(this.spriteSheet, this.x-this.w/2.8, this.y - this.w, this.w*1.5, this.h*2, 0, frameY, this.spriteWidth, this.spriteHeight);
+  }
+
+  animate() {
+    if (this.isMoving) {
+      if (this.frameCount % this.animationSpeed === 0) {
+        // Start from 1 instead of 0 and cycle through frames 1 to 15
+        this.currentFrame = (this.currentFrame % 15) + 1; 
+      }
+      this.frameCount++;
+    } else {
+      this.currentFrame = 0; // Set to 0 to show the standstill frame
+    }
+
+    // Display current frame
+    this.displayFrame(this.currentFrame);
+  }
   renderInventory() {
     stroke(130, 130, 220);
     textSize(this.is / 3);
@@ -40,9 +66,13 @@ class Player {
   }
 
   move() {
-    let futureX = this.x + (keyIsDown(RIGHT_ARROW) || keyIsDown(68) ? this.speedx : keyIsDown(LEFT_ARROW) || keyIsDown(65) ? -this.speedx : 0);
+    let futureX = this.x + (keyIsDown(RIGHT_ARROW) || keyIsDown(68) ? this.speedx: keyIsDown(LEFT_ARROW) || keyIsDown(65) ? -this.speedx : 0);
     let futureY = this.y + (keyIsDown(DOWN_ARROW) || keyIsDown(83) ? this.speedy : keyIsDown(UP_ARROW) || keyIsDown(87) ? -this.speedy : 0);
-    
+    if(keyIsDown(RIGHT_ARROW) || keyIsDown(68) || keyIsDown(LEFT_ARROW) || keyIsDown(65) || keyIsDown(DOWN_ARROW) || keyIsDown(83) || keyIsDown(UP_ARROW) || keyIsDown(87)){
+      this.isMoving = true;
+    }else{
+      this.isMoving = false;
+    }
     if (!this.collides(futureX, this.y)) this.x = futureX;
     if (!this.collides(this.x, futureY)) this.y = futureY;
   }
@@ -72,8 +102,9 @@ collides(x, y) {
     return false;
   }
   show() {
-    playerImg.resize(this.w*2, this.w*2);
-    image(playerImg, this.x-this.w/2, this.y-this.w);
+    // playerImg.resize(this.w*2, this.w*2);
+    // image(playerImg, this.x-this.w/2, this.y-this.w);
+    this.animate();
     this.renderInventory();
     this.selectInventory();
   }
