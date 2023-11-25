@@ -140,158 +140,101 @@ collides(x, y) {
   }
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Wheat{
-  constructor(size, tx, ty, r){
+class Crop {
+  constructor(type, size, tx, ty, r) {
+    this.img = loadImage(`assets/crops/${type}/${type}_img.png`);
+    this.seedImg = loadImage(`assets/crops/${type}/${type}_seed_img.png`);
+    this.stage = 0;
+    this.tileX = tx;
+    this.tileY = ty;
+    this.growthTime = 10; // Adjust as needed for each crop type
+    this.timePlanted = frameCount;
+    this.w = size;
+    this.images = [];
+    this.room = r;
+    this.harvestable = false;
+
+    for (let i = 0; i < 3; i++) {
+      this.images[i] = loadImage(`assets/crops/${type}/${type}_stage_${i}.png`);
+      this.images[i].resize(this.w, this.w);
+    }
+  }
+
+  update() {
+    this.timeElapsed = frameCount - this.timePlanted;
+    if (this.timeElapsed / this.growthTime == 1) this.stage = 0;
+    if (this.timeElapsed / this.growthTime == 2) this.stage = 1;
+    if (this.timeElapsed / this.growthTime == 3) {
+      this.stage = 2;
+      this.harvestable = true;
+    }
+  }
+
+  collision(player) {
+    let mouseTile = getTileUnderMouse();
+    if (mouseTile.tileX === this.tileX && mouseTile.tileY === this.tileY) {
+      if (mouseIsPressed && this.harvestable) {
+        if (player.harvest(this)) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  render() {
+    let x = this.tileX * tileSize;
+    let y = this.tileY * tileSize;
+    if (this.stage >= 0 && this.stage < 3)
+      image(this.images[this.stage], x, y, this.w, this.w);
+  }
+}
+
+class Wheat extends Crop {
+  constructor(size, tx, ty, r) {
+    super("wheat", size, tx, ty, r);
+    // Specific properties for Wheat
     this.img = wheatImg;
     this.seedImg = wheatSeedImg;
-    this.stage = 0;
-    this.tileX = tx;
-    this.tileY = ty;//the tile x and y on the map arraw defined in the top
-    this.growthTime = 10;//600 frames until the next stage
-    this.timePlanted = frameCount;
-    this.timeElapsed;
-    this.w = size;
-    this.images = [];
-    this.room = r;
-    this.harvestable = false;
+    this.growthTime = 10; // Example: 600 frames until the next stage
+    // Assuming you have images named accordingly
     for (let i = 0; i < 3; i++) {
-      this.images[i] = loadImage(`assets/crops/wheat/wheat_stage_${i}.png`); // Assuming you have images named accordingly
+      this.images[i] = loadImage(`assets/crops/wheat/wheat_stage_${i}.png`);
       this.images[i].resize(this.w, this.w);
     }
   }
-  update(){
-    this.timeElapsed = frameCount - this.timePlanted;
-    if (this.timeElapsed/this.growthTime==1) this.stage = 0;
-    if (this.timeElapsed/this.growthTime==2) this.stage = 1;
-    if (this.timeElapsed/this.growthTime==3){this.stage = 2; this.harvestable = true;}
-    
-  }
-  collision(player){
-    let mouseTile = getTileUnderMouse();
-    // Check if the tile under the mouse is the same as the wheat's tile
-    if (mouseTile.tileX === this.tileX && mouseTile.tileY === this.tileY) {
-      if(mouseIsPressed && this.harvestable){
-        if(player.harvest(this)) {
-          // Remove wheat from the array or set it to null
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-  render(){
-    let x = this.tileX * tileSize;
-    let y = this.tileY * tileSize;
-    if(this.stage>=0&&this.stage<3)
-    image(this.images[this.stage], x, y, this.w, this.w);
-  }
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-class Carrot{
-  constructor(size, tx, ty, r){
+class Carrot extends Crop {
+  constructor(size, tx, ty, r) {
+    super("carrot", size, tx, ty, r);
+    // Specific properties for Carrot
     this.img = carrotImg;
     this.seedImg = carrotSeedImg;
-    this.stage = 0;
-    this.tileX = tx;
-    this.tileY = ty;//the tile x and y on the map arraw defined in the top
-    this.growthTime = 10;//600 frames until the next stage
-    this.timePlanted = frameCount;
-    this.timeElapsed;
-    this.w = size;
-    this.images = [];
-    this.room = r;
-    this.harvestable = false;
+    this.growthTime = 10; // Example: 600 frames until the next stage
+    // Assuming you have images named accordingly
     for (let i = 0; i < 3; i++) {
-      this.images[i] = loadImage(`assets/crops/carrot/carrot_stage_${i}.png`); // Assuming you have images named accordingly
+      this.images[i] = loadImage(`assets/crops/carrot/carrot_stage_${i}.png`);
       this.images[i].resize(this.w, this.w);
     }
   }
-  update(){
-    this.timeElapsed = frameCount - this.timePlanted;
-    if (this.timeElapsed/this.growthTime==1) this.stage = 0;
-    if (this.timeElapsed/this.growthTime==2) this.stage = 1;
-    if (this.timeElapsed/this.growthTime==3){this.stage = 2; this.harvestable = true;}
-    
-  }
-  collision(player){
-    let mouseTile = getTileUnderMouse();
-    // Check if the tile under the mouse is the same as the wheat's tile
-    if (mouseTile.tileX === this.tileX && mouseTile.tileY === this.tileY) {
-      if(mouseIsPressed && this.harvestable){
-        if(player.harvest(this)) {
-          // Remove wheat from the array or set it to null
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-  render(){
-    let x = this.tileX * tileSize;
-    let y = this.tileY * tileSize;
-    if(this.stage>=0&&this.stage<3)
-    image(this.images[this.stage], x, y, this.w, this.w);
-  }
 }
 
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-class Potato{
-  constructor(size, tx, ty, r){
+class Potato extends Crop {
+  constructor(size, tx, ty, r) {
+    super("potato", size, tx, ty, r);
+    // Specific properties for Potato
     this.img = potatoImg;
     this.seedImg = potatoSeedImg;
-    this.stage = 0;
-    this.tileX = tx;
-    this.tileY = ty;//the tile x and y on the map arraw defined in the top
-    this.growthTime = 10;//600 frames until the next stage
-    this.timePlanted = frameCount;
-    this.timeElapsed;
-    this.w = size;
-    this.images = [];
-    this.room = r;
-    this.harvestable = false;
+    this.growthTime = 10; // Example: 600 frames until the next stage
+    // Assuming you have images named accordingly
     for (let i = 0; i < 3; i++) {
-      this.images[i] = loadImage(`assets/crops/potato/potato_stage_${i}.png`); // Assuming you have images named accordingly
+      this.images[i] = loadImage(`assets/crops/potato/potato_stage_${i}.png`);
       this.images[i].resize(this.w, this.w);
     }
   }
-  update(){
-    this.timeElapsed = frameCount - this.timePlanted;
-    if (this.timeElapsed/this.growthTime==1) this.stage = 0;
-    if (this.timeElapsed/this.growthTime==2) this.stage = 1;
-    if (this.timeElapsed/this.growthTime==3){this.stage = 2; this.harvestable = true;}
-    
-  }
-  collision(player){
-    let mouseTile = getTileUnderMouse();
-    // Check if the tile under the mouse is the same as the wheat's tile
-    if (mouseTile.tileX === this.tileX && mouseTile.tileY === this.tileY) {
-      if(mouseIsPressed && this.harvestable){
-        if(player.harvest(this)) {
-          // Remove wheat from the array or set it to null
-          return true;
-        }
-      }
-    }
-    return false;
-  }
-  render(){
-    let x = this.tileX * tileSize;
-    let y = this.tileY * tileSize;
-    if(this.stage>=0&&this.stage<3)
-    image(this.images[this.stage], x, y, this.w, this.w);
-  }
 }
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -444,3 +387,27 @@ class Well{
   }
 }
 
+class lockedSign {
+  constructor(tileX, tileY){
+    this.isLocked = true;
+    this.tileX = tileX;
+    this.tileY = tileY;
+    this.room = room0;
+    this.dialogue;
+  }
+  collision(){
+    if(this.room == room0){
+    let mouseTile = getTileUnderMouse(false);
+    if (mouseTile.tileX === this.tileX&&mouseTile.tileY === this.tileY&&state!=DIALOGUE_STATE) {
+      this.image = signSelectImg;
+      if(mouseIsClicked){
+        state = DIALOGUE_STATE;
+        NPC_dialogue = this.dialogue;
+        mouseIsClicked = false;
+      }
+    }else{
+      this.image = signImg;
+    }
+  }
+  }
+}

@@ -62,6 +62,17 @@ function renderDialogue(dialogue){
   }
 }
 
+function checkDialogueState(){
+  if(state == DIALOGUE_STATE){
+    if(NPC_dialogue == BEE){
+      renderDialogue(bee_dialogue)
+    }else if(NPC_dialogue == PIG){
+      renderDialogue(pig_dialogue)
+    }
+  }
+}
+
+
 function updateWheat(){
   for (let i = wheats.length - 1; i >= 0; i--) {
     wheats[i].update();
@@ -265,16 +276,6 @@ function updateCrops(){
     updateWheat();
     updateCarrot();
     updatePotato();
-}
-
-function checkDialogueState(){
-  if(state == DIALOGUE_STATE){
-    if(NPC_dialogue == BEE){
-      renderDialogue(bee_dialogue)
-    }else if(NPC_dialogue == PIG){
-      renderDialogue(pig_dialogue)
-    }
-  }
 }
 
 function drawUI(){
