@@ -45,21 +45,38 @@ function drawGrid(){
 } 
 
 function renderDialogue(dialogue){
-  dialogueImg.resize(visualViewport.width/2, visualViewport.height/4);
-  image(dialogueImg, p.x+p.w/2-visualViewport.width/4, p.y+visualViewport.height/2.8);
-  textAlign(CENTER, CENTER);
-  textFont('retro', tileSize/4);
-  fill(0);
-  stroke(255);
-  text(dialogue[dialogue_index], p.x+p.w/2, p.y+visualViewport.height/2.15);
-  if(mouseIsClicked){
-    dialogue_index++;
-    mouseIsClicked = false;
-  }
-  if(dialogue_index==dialogue.length){
-    state = GAME_STATE;
-    dialogue_index = 0;
-  }
+    if(dialogue == sign_dialogue){
+      dialogueImg.resize(visualViewport.width/2, visualViewport.height/4);
+      image(dialogueImg, p.x+p.w/2-visualViewport.width/4, p.y+visualViewport.height/2.8);
+      textAlign(CENTER, CENTER);
+      textFont('retro', tileSize/4);
+      fill(0);
+      stroke(255);
+      text(dialogue[dialogue_index], p.x+p.w/2, p.y+visualViewport.height/2.15);
+      if(mouseIsClicked){
+        dialogue_index++;
+        mouseIsClicked = false;
+      }
+      if(dialogue_index==dialogue.length){
+        state = GAME_STATE;
+        dialogue_index = 0;
+      }
+    }
+    dialogueImg.resize(visualViewport.width/2, visualViewport.height/4);
+    image(dialogueImg, p.x+p.w/2-visualViewport.width/4, p.y+visualViewport.height/2.8);
+    textAlign(CENTER, CENTER);
+    textFont('retro', tileSize/4);
+    fill(0);
+    stroke(255);
+    text(dialogue[dialogue_index], p.x+p.w/2, p.y+visualViewport.height/2.15);
+    if(mouseIsClicked){
+      dialogue_index++;
+      mouseIsClicked = false;
+    }
+    if(dialogue_index==dialogue.length){
+      state = GAME_STATE;
+      dialogue_index = 0;
+    }
 }
 
 function checkDialogueState(){
@@ -68,6 +85,8 @@ function checkDialogueState(){
       renderDialogue(bee_dialogue)
     }else if(NPC_dialogue == PIG){
       renderDialogue(pig_dialogue)
+    }else if(NPC_dialogue == SIGNRIGHT){
+      renderDialogue(sign_dialogue)
     }
   }
 }
@@ -263,6 +282,8 @@ function renderNPCs(){
     bee.render();
     m.collision();
     m.render();
+    sr.collision();
+    sr.render();
 }
 
 function drawToolIcons(){

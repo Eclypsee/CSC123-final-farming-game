@@ -22,7 +22,6 @@ class Player {
     let frameY = frame * this.spriteHeight; // Calculate the Y position of the frame
     image(this.spriteSheet, this.x-this.w/2.8, this.y - this.w, this.w*1.5, this.h*2, 0, frameY, this.spriteWidth, this.spriteHeight);
   }
-
   animate() {
     if (this.isMoving) {
       if (this.frameCount % this.animationSpeed === 0) {
@@ -386,28 +385,35 @@ class Well{
     }
   }
 }
-
-class lockedSign {
-  constructor(tileX, tileY){
+class lockedSign{
+  constructor(size, tx, ty, r, diao){
     this.isLocked = true;
-    this.tileX = tileX;
-    this.tileY = tileY;
-    this.room = room0;
-    this.dialogue;
+    this.tileX = tx;
+    this.tileY = ty;//the tile x and y on the map arraw defined in the top
+    this.size = size;
+    this.image = signImg;
+    this.room = r;
+    this.dialgouesign = diao;
   }
   collision(){
-    if(this.room == room0){
+    if(this.room == map&&this.isLocked){
     let mouseTile = getTileUnderMouse(false);
     if (mouseTile.tileX === this.tileX&&mouseTile.tileY === this.tileY&&state!=DIALOGUE_STATE) {
       this.image = signSelectImg;
       if(mouseIsClicked){
         state = DIALOGUE_STATE;
-        NPC_dialogue = this.dialogue;
+        NPC_dialogue = this.dialgouesign;
         mouseIsClicked = false;
       }
     }else{
       this.image = signImg;
     }
   }
+  }
+  render(){
+    if (this.room == map&&this.isLocked) {
+      this.image.resize(this.size, this.size);
+      image(this.image, this.tileX * tileSize, this.tileY*tileSize-tileSize*0.);
+    }
   }
 }

@@ -10,6 +10,9 @@ let p;
 let w;
 let pig;
 let bee;
+let sr;//sign on the right
+let sb;
+let sl;
 let wheats = [];
 let carrots = [];
 let potatoes = [];
@@ -40,7 +43,8 @@ let pigImg;
 let pigSelectImg;
 let beeImg;
 let beeSelectImg;
-
+let signImg;
+let signSelectImg;
 let wheatImg;
 let wheatSeedImg;
 let carrotImg;
@@ -65,6 +69,7 @@ let state = GAME_STATE;
 
 const BEE = 12903812;
 const PIG = 12123987;
+const SIGNRIGHT = 1238973;
 let NPC_dialogue;
 
 let dialogue_index = 0;
@@ -78,6 +83,8 @@ function preload() {
   beeImg = loadImage('assets/NPC/bee.png')
   beeSelectImg = loadImage('assets/NPC/bee_select.png')
   pigSelectImg = loadImage('assets/NPC/pig_select.png')
+  signImg = loadImage('assets/NPC/sign.png')
+  signSelectImg = loadImage('assets/NPC/sign_select.png')
 
   merchantSelectImg = loadImage('assets/NPC/merchant_select.png')
   merchantImg = loadImage('assets/NPC/merchant.png')
