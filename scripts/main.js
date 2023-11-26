@@ -18,9 +18,9 @@ function setup() {
   bee = new Bee(tileSize, 3, 1, room0);
   m = new Merchant();
   well = new Well();
-  sr = new lockedSign(tileSize, 8, 4, room0, SIGNRIGHT);
-  // sb = new lockedSign();
-  // sl = new lockedSign();
+  sr = new lockedSign(tileSize, 8, 4, room0, SIGN);
+  sb = new lockedSign(tileSize, 4, 8, room0, SIGN);
+  sl = new lockedSign(tileSize, 0, 4, room0, SIGN);
   frameRate(60);
 }
 

@@ -337,6 +337,11 @@ class Merchant{
     if (mouseTile.tileX >=this.tileX&&mouseTile.tileX <this.tileX+3&&mouseTile.tileY >= this.tileY&&mouseTile.tileY<this.tileY+3&&state!=DIALOGUE_STATE) {
       this.image = merchantSelectImg;
       if(mouseIsClicked){
+        if(mouseIsClicked){
+          state = DIALOGUE_STATE;
+          NPC_dialogue = MERCHANT;
+          mouseIsClicked = false;
+        }
         mouseIsClicked = false;
       }
     }else{

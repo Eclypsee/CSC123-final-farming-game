@@ -69,7 +69,8 @@ let state = GAME_STATE;
 
 const BEE = 12903812;
 const PIG = 12123987;
-const SIGNRIGHT = 1238973;
+const SIGN = 1238973;
+const MERCHANT = 1231312;
 let NPC_dialogue;
 
 let dialogue_index = 0;

@@ -45,21 +45,21 @@ function drawGrid(){
 } 
 
 function renderDialogue(dialogue){
-    if(dialogue == sign_dialogue){
-      dialogueImg.resize(visualViewport.width/2, visualViewport.height/4);
-      image(dialogueImg, p.x+p.w/2-visualViewport.width/4, p.y+visualViewport.height/2.8);
-      textAlign(CENTER, CENTER);
-      textFont('retro', tileSize/4);
-      fill(0);
-      stroke(255);
-      text(dialogue[dialogue_index], p.x+p.w/2, p.y+visualViewport.height/2.15);
-      if(mouseIsClicked){
-        dialogue_index++;
-        mouseIsClicked = false;
+    if (dialogue == merchant_dialogue && coins >= 10) {
+      if (keyIsDown(49)&&sl.isLocked) {//west
+        coins -= 10;
+        room0[4][0] = 4;
+        sl.isLocked = false;
       }
-      if(dialogue_index==dialogue.length){
-        state = GAME_STATE;
-        dialogue_index = 0;
+      if (keyIsDown(50)&&sb.isLocked) {//east
+        coins -= 10;
+        room0[4][8] = 2;
+        sb.isLocked = false;
+      }
+      if (keyIsDown(51)&&sr.isLocked) {//south
+        coins -= 10;
+        room0[8][4] = 3;
+        sr.isLocked = false;
       }
     }
     dialogueImg.resize(visualViewport.width/2, visualViewport.height/4);
@@ -85,8 +85,10 @@ function checkDialogueState(){
       renderDialogue(bee_dialogue)
     }else if(NPC_dialogue == PIG){
       renderDialogue(pig_dialogue)
-    }else if(NPC_dialogue == SIGNRIGHT){
+    }else if(NPC_dialogue == SIGN){
       renderDialogue(sign_dialogue)
+    }else if(NPC_dialogue == MERCHANT){
+      renderDialogue(merchant_dialogue);
     }
   }
 }
@@ -284,6 +286,10 @@ function renderNPCs(){
     m.render();
     sr.collision();
     sr.render();
+    sb.collision();
+    sb.render();
+    sl.collision();
+    sl.render();
 }
 
 function drawToolIcons(){
