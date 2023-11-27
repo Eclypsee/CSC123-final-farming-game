@@ -144,8 +144,10 @@ collides(x, y) {
   }
 }
 
+///////////////////////////////////////////////////  CROPS /////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Crop {
-  constructor(type, size, tx, ty, r) {
+  constructor(type, size, tx, ty, r, img, seedimg, growthTime) {
     this.img = loadImage(`assets/crops/${type}/${type}_img.png`);
     this.seedImg = loadImage(`assets/crops/${type}/${type}_seed_img.png`);
     this.stage = 0;
@@ -157,13 +159,18 @@ class Crop {
     this.images = [];
     this.room = r;
     this.harvestable = false;
-
+    this.img = img;
+    this.seedImg = seedimg;
+    this.growthTime = growthTime; // Example: 600 frames until the next stage
+    for (let i = 0; i < 3; i++) {
+      this.images[i] = loadImage(`assets/crops/`+type+`/`+type+`_stage_${i}.png`);
+      this.images[i].resize(this.w, this.w);
+    }
     for (let i = 0; i < 3; i++) {
       this.images[i] = loadImage(`assets/crops/${type}/${type}_stage_${i}.png`);
       this.images[i].resize(this.w, this.w);
     }
   }
-
   update() {
     this.timeElapsed = frameCount - this.timePlanted;
     if (this.timeElapsed / this.growthTime == 1) this.stage = 0;
@@ -173,7 +180,6 @@ class Crop {
       this.harvestable = true;
     }
   }
-
   collision(player) {
     let mouseTile = getTileUnderMouse();
     if (mouseTile.tileX === this.tileX && mouseTile.tileY === this.tileY) {
@@ -185,7 +191,6 @@ class Crop {
     }
     return false;
   }
-
   render() {
     let x = this.tileX * tileSize;
     let y = this.tileY * tileSize;
@@ -193,217 +198,65 @@ class Crop {
       image(this.images[this.stage], x, y, this.w, this.w);
   }
 }
+class Wheat extends Crop {constructor(size, tx, ty, r) {super("wheat", size, tx, ty, r, wheatImg, wheatSeedImg, 10);}}
+class Carrot extends Crop {constructor(size, tx, ty, r) {super("carrot", size, tx, ty, r, carrotImg, carrotSeedImg, 10);}} 
+class Potato extends Crop {constructor(size, tx, ty, r) {super("potato", size, tx, ty, r, potatoImg, potatoSeedImg, 10);}}
 
-class Wheat extends Crop {
-  constructor(size, tx, ty, r) {
-    super("wheat", size, tx, ty, r);
-    // Specific properties for Wheat
-    this.img = wheatImg;
-    this.seedImg = wheatSeedImg;
-    this.growthTime = 10; // Example: 600 frames until the next stage
-    // Assuming you have images named accordingly
-    for (let i = 0; i < 3; i++) {
-      this.images[i] = loadImage(`assets/crops/wheat/wheat_stage_${i}.png`);
-      this.images[i].resize(this.w, this.w);
-    }
-  }
-}
-
-class Carrot extends Crop {
-  constructor(size, tx, ty, r) {
-    super("carrot", size, tx, ty, r);
-    // Specific properties for Carrot
-    this.img = carrotImg;
-    this.seedImg = carrotSeedImg;
-    this.growthTime = 10; // Example: 600 frames until the next stage
-    // Assuming you have images named accordingly
-    for (let i = 0; i < 3; i++) {
-      this.images[i] = loadImage(`assets/crops/carrot/carrot_stage_${i}.png`);
-      this.images[i].resize(this.w, this.w);
-    }
-  }
-}
-
-class Potato extends Crop {
-  constructor(size, tx, ty, r) {
-    super("potato", size, tx, ty, r);
-    // Specific properties for Potato
-    this.img = potatoImg;
-    this.seedImg = potatoSeedImg;
-    this.growthTime = 10; // Example: 600 frames until the next stage
-    // Assuming you have images named accordingly
-    for (let i = 0; i < 3; i++) {
-      this.images[i] = loadImage(`assets/crops/potato/potato_stage_${i}.png`);
-      this.images[i].resize(this.w, this.w);
-    }
-  }
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-class Pig{
-  constructor(size, tx, ty, r){
+///////////////////////////////////////////////////  NPC   /////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class NPC {
+  constructor(size, tx, ty, r, image, selectimage, npcdialogue){
     this.tileX = tx;
     this.tileY = ty;//the tile x and y on the map arraw defined in the top
     this.size = size;
-    this.image = pigImg;
+    this.image = image;
+    this.nonselectimage = image
+    this.selectimage = selectimage;
     this.room = r;
+    this.d = npcdialogue;
   }
   collision(){
     if(this.room == map){
-    let mouseTile = getTileUnderMouse(false);
-    // Check if the tile under the mouse is the same as the wheat's tile
-    if ((mouseTile.tileX === this.tileX || mouseTile.tileX === this.tileX+1)&&(mouseTile.tileY === this.tileY||mouseTile.tileY === this.tileY+1)&&state!=DIALOGUE_STATE) {
-      this.image = pigSelectImg;
-      if(mouseIsClicked){
-        state = DIALOGUE_STATE;
-        NPC_dialogue = PIG;
-        mouseIsClicked = false;
-      }
-    }else{
-    this.image = pigImg;
-    } 
-  }
-  }
-  render(){
-    if(this.room == map){
-    this.image.resize(this.size, this.size);
-    image(this.image, this.tileX*tileSize, this.tileY*tileSize);
+      let mouseTile = getTileUnderMouse(false);
+      // Check if the tile under the mouse is the same as the wheat's tile
+      if (mouseTile.tileX >= this.tileX&&mouseTile.tileX < this.tileX+this.size/tileSize&&mouseTile.tileY >= this.tileY&&mouseTile.tileY < this.tileY+this.size/tileSize&&state!=DIALOGUE_STATE) {
+        this.image = this.selectimage;
+        if(mouseIsClicked&&this.d!=null){
+          state = DIALOGUE_STATE;
+          NPC_dialogue = this.d;
+          mouseIsClicked = false;
+        }
+      }else{
+      this.image = this.nonselectimage;
+      } 
     }
   }
+  render(){if(this.room == map){this.image.resize(this.size, this.size);image(this.image, this.tileX*tileSize, this.tileY*tileSize);}}
 }
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-class Bee{
-  constructor(size, tx, ty, r){
-    this.tileX = tx;
-    this.tileY = ty;//the tile x and y on the map arraw defined in the top
-    this.size = size;
-    this.image = beeImg;
-    this.room = r;
+class Pig extends NPC {constructor() {super(2*tileSize, 6, 6, room0, pigImg, pigSelectImg, PIG);}}
+class Merchant extends NPC {constructor() {super(3*tileSize, 1, 5, room0, merchantImg, merchantSelectImg, MERCHANT);}}
+class Well extends NPC {constructor() {super(3*tileSize, 1, 1, room0, wellImg, wellSelectImg, null);}}
+class Bee extends NPC{
+  constructor() {
+    super(tileSize, 3, 1, room0, beeImg, beeSelectImg, BEE);
     this.hoverHeight = tileSize/4; // Max hover height/depth
     this.hoverSpeed = 0.05; // Speed of the hover effect
     this.hoverAngle = 0; // Starting angle for the hover effect
   }
-  collision(){
-    if(this.room == map){
-    let mouseTile = getTileUnderMouse(false);
-    if (mouseTile.tileX === this.tileX&&mouseTile.tileY === this.tileY&&state!=DIALOGUE_STATE) {
-      this.image = beeSelectImg;
-      if(mouseIsClicked){
-        state = DIALOGUE_STATE;
-        NPC_dialogue = BEE;
-        mouseIsClicked = false;
-      }
-    }else{
-      this.image = beeImg;
-    }
-  }
-  }
   render(){
-    if (this.room == map) {
-      // Calculate the hover effect
-      let hoverY = this.tileY * tileSize*0.7 + sin(this.hoverAngle) * this.hoverHeight;
-      this.hoverAngle += this.hoverSpeed; // Increment the angle to continue the hover effect
-
-      // Resize the image and draw it at the 'hovering' position
-      this.image.resize(this.size, this.size);
-      image(this.image, this.tileX * tileSize, hoverY);
-
-      // Optionally reset the hover angle to prevent it from increasing indefinitely
-      if (this.hoverAngle > TWO_PI) {
-        this.hoverAngle -= TWO_PI;
-      }
-    }
-  }
-}
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-class Merchant{
-  constructor(){
-    this.tileX = 1;
-    this.tileY = 5;//the tile x and y on the map arraw defined in the top
-    this.size = tileSize*3;
-    this.image = merchantImg;
-    this.room = room0;
-  }
-  collision(){
-    if(this.room == map){
-    let mouseTile = getTileUnderMouse(false);
-    // Check if the tile under the mouse is the same as the wheat's tile
-    if (mouseTile.tileX >=this.tileX&&mouseTile.tileX <this.tileX+3&&mouseTile.tileY >= this.tileY&&mouseTile.tileY<this.tileY+3&&state!=DIALOGUE_STATE) {
-      this.image = merchantSelectImg;
-      if(mouseIsClicked){
-        if(mouseIsClicked){
-          state = DIALOGUE_STATE;
-          NPC_dialogue = MERCHANT;
-          mouseIsClicked = false;
-        }
-        mouseIsClicked = false;
-      }
-    }else{
-    this.image = merchantImg;
-    } 
-  }
-  }
-  render(){
-    if(this.room == map){
+  if (this.room == map) {
+    let hoverY = this.tileY * tileSize*0.7 + sin(this.hoverAngle) * this.hoverHeight;
+    this.hoverAngle += this.hoverSpeed; // Increment the angle to continue the hover effect
     this.image.resize(this.size, this.size);
-    image(this.image, this.tileX*tileSize, this.tileY*tileSize);
-    }
+    image(this.image, this.tileX * tileSize, hoverY);
+    if (this.hoverAngle > TWO_PI) {this.hoverAngle -= TWO_PI;}
   }
+ }
 }
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-class Well{
-  constructor(){
-    this.tileX = 1;
-    this.tileY = 1;//the tile x and y on the map arraw defined in the top
-    this.size = tileSize*3;
-    this.image = wellImg;
-    this.room = room0;
-  }
-  collision(){
-    if(this.room == map){
-    let mouseTile = getTileUnderMouse(false);
-    // Check if the tile under the mouse is the same as the wheat's tile
-    if (mouseTile.tileX >=this.tileX&&mouseTile.tileX <this.tileX+2&&mouseTile.tileY >= this.tileY&&mouseTile.tileY<this.tileY+3&&state!=DIALOGUE_STATE) {
-      this.image = wellSelectImg;
-      if(mouseIsClicked){
-        mouseIsClicked = false;
-      }
-    }else{
-    this.image = wellImg;
-    } 
-  }
-  }
-  render(){
-    if(this.room == map){
-    this.image.resize(this.size, this.size);
-    image(this.image, this.tileX*tileSize, this.tileY*tileSize);
-    }
-  }
-}
-class lockedSign{
-  constructor(size, tx, ty, r, diao){
+class lockedSign extends NPC {
+  constructor(tx, ty) {
+    super(tileSize, tx, ty, room0, signImg, signSelectImg, SIGN);
     this.isLocked = true;
-    this.tileX = tx;
-    this.tileY = ty;//the tile x and y on the map arraw defined in the top
-    this.size = size;
-    this.image = signImg;
-    this.room = r;
-    this.dialgouesign = diao;
   }
   collision(){
     if(this.room == map&&this.isLocked){
@@ -412,18 +265,11 @@ class lockedSign{
       this.image = signSelectImg;
       if(mouseIsClicked){
         state = DIALOGUE_STATE;
-        NPC_dialogue = this.dialgouesign;
+        NPC_dialogue = SIGN;
         mouseIsClicked = false;
       }
-    }else{
-      this.image = signImg;
+    }else{this.image = signImg;}
     }
   }
-  }
-  render(){
-    if (this.room == map&&this.isLocked) {
-      this.image.resize(this.size, this.size);
-      image(this.image, this.tileX * tileSize, this.tileY*tileSize-tileSize*0.);
-    }
-  }
+  render(){if(this.room==map&&this.isLocked){this.image.resize(this.size, this.size);image(this.image, this.tileX * tileSize,this.tileY*tileSize-tileSize*0.);}}
 }

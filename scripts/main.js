@@ -15,13 +15,13 @@ function setup() {
   potatoes.push(pot);
 
   //initialize NPCs
-  pig = new Pig(tileSize*2, 6, 6, room0);
-  bee = new Bee(tileSize, 3, 1, room0);
+  pig = new Pig();
+  bee = new Bee();
   m = new Merchant();
   well = new Well();
-  sr = new lockedSign(tileSize, 8, 4, room0, SIGN);
-  sb = new lockedSign(tileSize, 4, 8, room0, SIGN);
-  sl = new lockedSign(tileSize, 0, 4, room0, SIGN);
+  sr = new lockedSign(8, 4);
+  sb = new lockedSign(4, 8);
+  sl = new lockedSign(0, 4);
   frameRate(60);
 }
 
