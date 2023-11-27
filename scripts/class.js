@@ -9,7 +9,7 @@ class Player {
     this.speedy = size/20;
     this.inventory = [[1, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];//[[isSelected, type, num]]
     this.is = size / 2;//inventory size(its a square)
-
+    this.direction = 'right'
     this.isMoving = false;
     this.spriteSheet = playerSpriteSheet; // Load your sprite sheet here
     this.spriteWidth = 40; // Width of each sprite frame
@@ -20,13 +20,20 @@ class Player {
   }
   displayFrame(frame) {
     let frameY = frame * this.spriteHeight; // Calculate the Y position of the frame
-    image(this.spriteSheet, this.x-this.w/2.8, this.y - this.w, this.w*1.5, this.h*2, 0, frameY, this.spriteWidth, this.spriteHeight);
+    push(); // Save the current drawing state
+    translate(this.x, this.y);
+    if (this.direction === 'left') {scale(-1, 1);image(this.spriteSheet, -this.w*1.25, -this.w, this.w*1.5, this.h*2, 0, frameY, this.spriteWidth, this.spriteHeight);} 
+    else {image(this.spriteSheet, -this.w/2.8, -this.w, this.w*1.5, this.h*2, 0, frameY, this.spriteWidth, this.spriteHeight);}
+    pop(); // Restore the drawing state
   }
   animate() {
+    // Determine direction based on key presses
+    if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {this.direction = 'right';} 
+    else if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {this.direction = 'left';}
+    this.isMoving = keyIsPressed;
     if (this.isMoving) {
       if (this.frameCount % this.animationSpeed === 0) {
-        // Start from 1 instead of 0 and cycle through frames 1 to 15
-        this.currentFrame = (this.currentFrame % 15) + 1; 
+        this.currentFrame = (this.currentFrame % 15) + 1; // Start from 1 instead of 0 and cycle through frames 1 to 15
       }
       this.frameCount++;
     } else {
