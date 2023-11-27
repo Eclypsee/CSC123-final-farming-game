@@ -22,7 +22,7 @@ class Player {
     let frameY = frame * this.spriteHeight; // Calculate the Y position of the frame
     push(); // Save the current drawing state
     translate(this.x, this.y);
-    if (this.direction === 'left') {scale(-1, 1);image(this.spriteSheet, -this.w*1.25, -this.w, this.w*1.5, this.h*2, 0, frameY, this.spriteWidth, this.spriteHeight);} 
+    if (this.direction === 'left') {scale(-1, 1);image(this.spriteSheet, -this.w*1.35, -this.w, this.w*1.5, this.h*2, 0, frameY, this.spriteWidth, this.spriteHeight);} 
     else {image(this.spriteSheet, -this.w/2.8, -this.w, this.w*1.5, this.h*2, 0, frameY, this.spriteWidth, this.spriteHeight);}
     pop(); // Restore the drawing state
   }

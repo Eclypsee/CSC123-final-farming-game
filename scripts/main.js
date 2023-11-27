@@ -1,5 +1,6 @@
 ////////////setup/////////////////
 function setup() {
+  noSmooth();
   createCanvas(visualViewport.width, visualViewport.width); // Assuming you want the height to be the same as the width
 
   //initialize player
