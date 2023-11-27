@@ -148,8 +148,8 @@ collides(x, y) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Crop {
   constructor(type, size, tx, ty, r, img, seedimg, growthTime) {
-    this.img = loadImage(`assets/crops/${type}/${type}_img.png`);
-    this.seedImg = loadImage(`assets/crops/${type}/${type}_seed_img.png`);
+    this.img = loadImage(`assets/crops/${type}/${type}.png`);
+    this.seedImg = loadImage(`assets/crops/${type}/${type}_seed.png`);
     this.stage = 0;
     this.tileX = tx;
     this.tileY = ty;

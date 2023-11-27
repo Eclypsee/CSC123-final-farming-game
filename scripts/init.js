@@ -71,6 +71,7 @@ const BEE = 12903812;
 const PIG = 12123987;
 const SIGN = 1238973;
 const MERCHANT = 1231312;
+const WELL = 444444;
 let NPC_dialogue;
 
 let dialogue_index = 0;
@@ -90,8 +91,8 @@ function preload() {
   merchantSelectImg = loadImage('assets/NPC/merchant_select.png')
   merchantImg = loadImage('assets/NPC/merchant.png')
 
-  wellSelectImg = loadImage('assets/well_select.png')
-  wellImg = loadImage('assets/well.png')
+  wellSelectImg = loadImage('assets/NPC/well_select.png')
+  wellImg = loadImage('assets/NPC/well.png')
 
   wheatImg = loadImage('assets/crops/wheat/wheat.png')
   wheatSeedImg = loadImage('assets/crops/wheat/wheat_seed.png')
@@ -109,7 +110,7 @@ function preload() {
 
   coinImg = loadImage('assets/coin.png')
 
-  catIconImg = loadImage('assets/NPC/catIcon.png')
+  catIconImg = loadImage('assets/catIcon.png')
 
   playerSpriteSheet = loadImage('assets/playersprite.png')
 

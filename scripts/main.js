@@ -28,13 +28,47 @@ function setup() {
 ///////////draw///////////////////
 function draw() {
   resizeCanvas(visualViewport.width, visualViewport.height);
+
+  //checks game state and moves camera
   checkGameState();
-  updateCrops();
-  renderNPCs();
-  drawToolIcons();
-  drawUI();
+
+  //update crops
+  updateCrop(wheats, p);
+  updateCrop(carrots, p);
+  updateCrop(potatoes, p);
+
+  //render and collide npcs
+  well.collision();
+  well.render();
+  pig.collision();
+  pig.render();
+  bee.collision();
+  bee.render();
+  m.collision();
+  m.render();
+  sr.collision();
+  sr.render();
+  sb.collision();
+  sb.render();
+  sl.collision();
+  sl.render();
+
+  //render tools
+  toolIcon('planter');
+  toolIcon('harvester');
+  toolIcon('shoveler');
+
+  //render health bar/ui etc
+  drawCatHealthBar();
+  drawCoinMeter();
+
+  //show player
   p.show();
+
+  //checks dialogue state and does all that
   checkDialogueState();
+
+  //sets mouse clicked to false each frame for bug fixes
   mouseIsClicked = false;
 
 }
