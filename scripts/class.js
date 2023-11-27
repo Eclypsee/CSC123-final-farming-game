@@ -101,8 +101,6 @@ collides(x, y) {
     return false;
   }
   show() {
-    // playerImg.resize(this.w*2, this.w*2);
-    // image(playerImg, this.x-this.w/2, this.y-this.w);
     this.animate();
     this.renderInventory();
     this.selectInventory();
