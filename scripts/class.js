@@ -28,9 +28,11 @@ class Player {
   }
   animate() {
     // Determine direction based on key presses
-    if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {this.direction = 'right';} 
-    else if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {this.direction = 'left';}
-    this.isMoving = keyIsDown(RIGHT_ARROW) || keyIsDown(68) || keyIsDown(LEFT_ARROW) || keyIsDown(65) || keyIsDown(DOWN_ARROW) || keyIsDown(83) || keyIsDown(UP_ARROW) || keyIsDown(87);
+    if(state==GAME_STATE){
+      if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {this.direction = 'right';} 
+      else if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {this.direction = 'left';}
+    }
+    this.isMoving = (keyIsDown(RIGHT_ARROW) || keyIsDown(68) || keyIsDown(LEFT_ARROW) || keyIsDown(65) || keyIsDown(DOWN_ARROW) || keyIsDown(83) || keyIsDown(UP_ARROW) || keyIsDown(87))&&state==GAME_STATE;
     if (this.isMoving) {
       if (this.frameCount % this.animationSpeed === 0) {
         this.currentFrame = (this.currentFrame % 15) + 1; // Start from 1 instead of 0 and cycle through frames 1 to 15
@@ -74,11 +76,6 @@ class Player {
   move() {
     let futureX = this.x + (keyIsDown(RIGHT_ARROW) || keyIsDown(68) ? this.speedx: keyIsDown(LEFT_ARROW) || keyIsDown(65) ? -this.speedx : 0);
     let futureY = this.y + (keyIsDown(DOWN_ARROW) || keyIsDown(83) ? this.speedy : keyIsDown(UP_ARROW) || keyIsDown(87) ? -this.speedy : 0);
-    if(keyIsDown(RIGHT_ARROW) || keyIsDown(68) || keyIsDown(LEFT_ARROW) || keyIsDown(65) || keyIsDown(DOWN_ARROW) || keyIsDown(83) || keyIsDown(UP_ARROW) || keyIsDown(87)){
-      this.isMoving = true;
-    }else{
-      this.isMoving = false;
-    }
     if (!this.collides(futureX, this.y)) this.x = futureX;
     if (!this.collides(this.x, futureY)) this.y = futureY;
   }

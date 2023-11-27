@@ -7,12 +7,12 @@ function setup() {
   p = new Player(map[0].length*tileSize/2-tileSize/2, map.length*tileSize/2-tileSize/2, tileSize*5/6);
 
   //initialize crops
-  w = new Wheat(tileSize, 6, 2, room0);
-  wheats.push(w);
-  c = new Carrot(tileSize, 5, 2, room0);
-  carrots.push(c);
-  pot = new Potato(tileSize, 7, 2, room0);
-  potatoes.push(pot);
+  wheat = new Wheat(tileSize, 6, 2, room0);
+  wheats.push(wheat);
+  carrot = new Carrot(tileSize, 5, 2, room0);
+  carrots.push(carrot);
+  potato = new Potato(tileSize, 7, 2, room0);
+  potatoes.push(potato);
 
   //initialize NPCs
   pig = new Pig();
