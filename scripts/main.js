@@ -17,7 +17,7 @@ function setup() {
   //initialize NPCs
   pig = new Pig();
   bee = new Bee();
-  m = new Merchant();
+  merchant = new Merchant();
   well = new Well();
   sr = new lockedSign(8, 4);
   sb = new lockedSign(4, 8);
@@ -44,8 +44,8 @@ function draw() {
   pig.render();
   bee.collision();
   bee.render();
-  m.collision();
-  m.render();
+  merchant.collision();
+  merchant.render();
   sr.collision();
   sr.render();
   sb.collision();
