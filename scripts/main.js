@@ -38,20 +38,22 @@ function draw() {
   updateCrop(potatoes, p);
 
   //render and collide npcs
-  well.collision();
-  well.render();
-  pig.collision();
-  pig.render();
-  bee.collision();
-  bee.render();
-  merchant.collision();
-  merchant.render();
-  sr.collision();
-  sr.render();
-  sb.collision();
-  sb.render();
-  sl.collision();
-  sl.render();
+  if(map==room0){
+    well.collision();
+    well.render();
+    pig.collision();
+    pig.render();
+    bee.collision();
+    bee.render();
+    merchant.collision();
+    merchant.render();
+    sr.collision();
+    sr.render();
+    sb.collision();
+    sb.render();
+    sl.collision();
+    sl.render();
+  }
 
   //render tools
   toolIcon('planter');
