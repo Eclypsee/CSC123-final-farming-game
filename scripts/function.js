@@ -39,11 +39,11 @@ function handleMerchantInteraction() {
   } else if (keyIsDown(50) && sb.isLocked) { // east
     coins -= 10;
     room0[4][8] = 2;
-    sb.isLocked = false;
+    sr.isLocked = false;
   } else if (keyIsDown(51) && sr.isLocked) { // south
     coins -= 10;
     room0[8][4] = 3;
-    sr.isLocked = false;
+    sb.isLocked = false;
   }
 }
 function renderDialogue(dialogue){
