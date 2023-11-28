@@ -232,7 +232,27 @@ class NPC {
 }
 class Pig extends NPC {constructor() {super(2*tileSize, 6, 6, room0, pigImg, pigSelectImg, PIG);}}
 class Merchant extends NPC {constructor() {super(3*tileSize, 1, 5, room0, merchantImg, merchantSelectImg, MERCHANT);}}
-class Well extends NPC {constructor() {super(3*tileSize, 1, 1, room0, wellImg, wellSelectImg, null);}}
+class Well extends NPC {
+  constructor() {
+    super(3*tileSize, 1, 1, room0, wellImg, wellSelectImg, null);
+  }
+  collision(){
+    if(this.room == map){
+      let mouseTile = getTileUnderMouse(false);
+      // Check if the tile under the mouse is the same as the wheat's tile
+      if (mouseTile.tileX >= this.tileX&&mouseTile.tileX < this.tileX-1+this.size/tileSize&&mouseTile.tileY >= this.tileY&&mouseTile.tileY < this.tileY+this.size/tileSize&&state!=DIALOGUE_STATE) {
+        this.image = this.selectimage;
+        if(mouseIsClicked&&this.d!=null){
+          state = DIALOGUE_STATE;
+          NPC_dialogue = this.d;
+          mouseIsClicked = false;
+        }
+      }else{
+      this.image = this.nonselectimage;
+      } 
+    }
+  }
+}
 class Bee extends NPC{
   constructor() {
     super(tileSize, 3, 1, room0, beeImg, beeSelectImg, BEE);
