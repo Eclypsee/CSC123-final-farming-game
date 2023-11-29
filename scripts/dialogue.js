@@ -18,7 +18,7 @@ let character_dialogues = {
     },
     "bee_dialogue":{
       start: {
-        texts: ["welcome, honoured guest", "here are the controls", "use wasd to move", "the shovel icon digs up crops\n(beware, you lose the crop completely)", "the scythe icon harvests crops", "the hand icon allows you to plant crops\n select the crop using your inventory", "use the numbers 1-6\n to navigate inventory", "keep the cat's health above 0!", "keep exploring"],
+        texts: ["welcome, honoured guest", "here are the controls", "use wasd to move", "the shovel icon digs up crops\n(beware, you lose the crop completely)", "the scythe icon harvests crops", "the hand icon allows you to plant crops\n select the crop using your inventory", "use the numbers 1-6\n to navigate inventory", "feed the cat.", "keep exploring"],
         currentTextIndex: 0,
         options: [{ text: "leave", action: () =>dialogueManager.endDialogue}],
         },
@@ -65,9 +65,9 @@ let character_dialogues = {
         buy: {
         text: "Here's what I have for sale. Take your time to browse.",
         options: [
-            { text: "Buy carrot", nextState: "buy", action: () => {if(coins>=3){p.addToInventory(carrotImg, 1);coins-=3}}},
-            { text: "Buy potato", nextState: "buy", action: () => {if(coins>=3){p.addToInventory(potatoImg, 1);coins-=3}}},
-            { text: "Buy wheat", nextState: "buy", action: () => {if(coins>=3){p.addToInventory(wheatImg, 1);coins-=3}}},
+            { text: "Buy carrot seeds ", nextState: "buy", action: () => {if(coins>=3){p.addToInventory(carrotSeedImg, 1);coins-=3}}},
+            { text: "Buy potato seeds ", nextState: "buy", action: () => {if(coins>=3){p.addToInventory(potatoSeedImg, 1);coins-=3}}},
+            { text: "Buy wheat seeds ", nextState: "buy", action: () => {if(coins>=3){p.addToInventory(wheatSeedImg, 1);coins-=3}}},
             { text: "Buy fish", nextState: "buy", action: () => {if(coins>=6){fish++;coins-=6}}},
             { text: "Goodbye", nextState: "end" }
         ]
