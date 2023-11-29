@@ -29,67 +29,8 @@ function getTileUnderMouse(show) {
   // Return the tile coordinates
   return { tileX, tileY };
 }
-function handleMerchantInteraction() {
-  if (coins < 10) return;
 
-  if (keyIsDown(49) && sl.isLocked) { // west
-    coins -= 10;
-    room0[4][0] = 4;
-    sl.isLocked = false;
-  } else if (keyIsDown(50) && sb.isLocked) { // east
-    coins -= 10;
-    room0[4][8] = 2;
-    sr.isLocked = false;
-  } else if (keyIsDown(51) && sr.isLocked) { // south
-    coins -= 10;
-    room0[8][4] = 3;
-    sb.isLocked = false;
-  }
-}
-function renderDialogue(dialogue){
-    if (NPC_dialogue === MERCHANT) handleMerchantInteraction();
-    dialogueImg.resize(visualViewport.width/2, visualViewport.height/4);
-    image(dialogueImg, p.x+p.w/2-visualViewport.width/4, p.y+visualViewport.height/2.8);
-    textAlign(CENTER, CENTER);
-    textFont('retro', tileSize/4);
-    fill(0);
-    stroke(255);
-    text(dialogue[dialogue_index], p.x+p.w/2, p.y+visualViewport.height/2.15);
-    if(mouseIsClicked){
-      dialogue_index++;
-      mouseIsClicked = false;
-    }
-    if(dialogue_index==dialogue.length){
-      state = GAME_STATE;
-      dialogue_index = 0;
-    }
-}
-function checkDialogueState() {
-  if (state === DIALOGUE_STATE) {
-    if(NPC_dialogue==BEE)renderDialogue(bee_dialogue);
-    else if(NPC_dialogue==WELL)renderDialogue(well_dialogue);
-    else if(NPC_dialogue==MERCHANT)renderDialogue(merchant_dialogue);
-    else if(NPC_dialogue==PIG)renderDialogue(pig_dialogue);
-    else if(NPC_dialogue==SIGN)renderDialogue(sign_dialogue);
 
-  }
-}
-function mouseClicked() {
-  console.log("click");
-  mouseIsClicked = true;
-  removeCropIfShoveling(wheats);
-  removeCropIfShoveling(carrots);
-  removeCropIfShoveling(potatoes);
-  let mouseTile = getTileUnderMouse();
-  
-  // Check if the clicked tile is plantable ground and the player is in planting mode
-  if (map[mouseTile.tileY][mouseTile.tileX] == 'p' && planting) {
-    plantCrops(wheats, wheatSeedImg, Wheat)
-    plantCrops(carrots, carrotSeedImg, Carrot)
-    plantCrops(potatoes, potatoSeedImg, Potato)
-    
-  }
-}
 
 function plantCrops(cropArray, cropSeedImg, clas){
   let mouseTile = getTileUnderMouse();

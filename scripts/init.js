@@ -16,7 +16,8 @@ let shoveling = false;
 let map = room0;
 let tileSize = 150;
 let catHealth = 100;//in percent
-let coins = 0;
+let coins = 10;
+let fish = 0;
 
 let NPC_dialogue;
 

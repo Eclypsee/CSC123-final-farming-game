@@ -19,12 +19,14 @@ class Player {
     this.animationSpeed = 5; // Adjust the speed of the animation
   }
   displayFrame(frame) {
+    imageMode(CORNER)
     let frameY = frame * this.spriteHeight; // Calculate the Y position of the frame
     push(); // Save the current drawing state
     translate(this.x, this.y);
     if (this.direction === 'left') {scale(-1, 1);image(this.spriteSheet, -this.w*1.35, -this.w, this.w*1.5, this.h*2, 0, frameY, this.spriteWidth, this.spriteHeight);} 
     else {image(this.spriteSheet, -this.w/2.8, -this.w, this.w*1.5, this.h*2, 0, frameY, this.spriteWidth, this.spriteHeight);}
     pop(); // Restore the drawing state
+    imageMode(CORNER)
   }
   animate() {
     // Determine direction based on key presses
@@ -110,7 +112,7 @@ collides(x, y) {
     this.selectInventory();
   }
   harvest(crop) {
-    if (crop.harvestable&&harvesting) {
+    if (crop.harvestable&&harvesting) {//create an animation of the crop hovering in screen and fading out when harvesting
       // Add 2 seeds (assuming type 1 represents seeds) to inventory
       this.addToInventory(crop.seedImg, 2);
       // Add 1 wheat crop (assuming type 2 represents wheat crops) to inventory
@@ -218,9 +220,9 @@ class NPC {
       // Check if the tile under the mouse is the same as the wheat's tile
       if (mouseTile.tileX >= this.tileX&&mouseTile.tileX < this.tileX+this.size/tileSize&&mouseTile.tileY >= this.tileY&&mouseTile.tileY < this.tileY+this.size/tileSize&&state!=DIALOGUE_STATE) {
         this.image = this.selectimage;
-        if(mouseIsClicked&&this.d!=null){
+        if(mouseIsClicked&&state!=DIALOGUE_STATE){
           state = DIALOGUE_STATE;
-          NPC_dialogue = this.d;
+          dialogueManager.startDialogue(this.d, character_dialogues[this.d].start);
           mouseIsClicked = false;
         }
       }else{
@@ -230,8 +232,8 @@ class NPC {
   }
   render(){if(this.room == map){this.image.resize(this.size, this.size);image(this.image, this.tileX*tileSize, this.tileY*tileSize);}}
 }
-class Pig extends NPC {constructor() {super(2*tileSize, 6, 6, room0, pigImg, pigSelectImg, PIG);}}
-class Merchant extends NPC {constructor() {super(3*tileSize, 1, 5, room0, merchantImg, merchantSelectImg, MERCHANT);}}
+class Pig extends NPC {constructor() {super(2*tileSize, 6, 6, room0, pigImg, pigSelectImg, "pig_dialogue");}}
+class Merchant extends NPC {constructor() {super(3*tileSize, 1, 5, room0, merchantImg, merchantSelectImg, "home_merchant_dialogue");}}
 class Well extends NPC {
   constructor() {
     super(3*tileSize, 1, 1, room0, wellImg, wellSelectImg, null);
@@ -242,9 +244,9 @@ class Well extends NPC {
       // Check if the tile under the mouse is the same as the wheat's tile
       if (mouseTile.tileX >= this.tileX&&mouseTile.tileX < this.tileX-1+this.size/tileSize&&mouseTile.tileY >= this.tileY&&mouseTile.tileY < this.tileY+this.size/tileSize&&state!=DIALOGUE_STATE) {
         this.image = this.selectimage;
-        if(mouseIsClicked&&this.d!=null){
+        if(mouseIsClicked){
           state = DIALOGUE_STATE;
-          NPC_dialogue = this.d;
+          dialogueManager.startDialogue("well_dialogue", character_dialogues["well_dialogue"].start);
           mouseIsClicked = false;
         }
       }else{
@@ -255,7 +257,7 @@ class Well extends NPC {
 }
 class Bee extends NPC{
   constructor() {
-    super(tileSize, 3, 1, room0, beeImg, beeSelectImg, BEE);
+    super(tileSize, 3, 1, room0, beeImg, beeSelectImg, "bee_dialogue");
     this.hoverHeight = tileSize/4; // Max hover height/depth
     this.hoverSpeed = 0.05; // Speed of the hover effect
     this.hoverAngle = 0; // Starting angle for the hover effect
@@ -272,7 +274,7 @@ class Bee extends NPC{
 }
 class lockedSign extends NPC {
   constructor(tx, ty) {
-    super(tileSize, tx, ty, room0, signImg, signSelectImg, SIGN);
+    super(tileSize, tx, ty, room0, signImg, signSelectImg, "sign_dialogue");
     this.isLocked = true;
   }
   collision(){
@@ -280,9 +282,9 @@ class lockedSign extends NPC {
     let mouseTile = getTileUnderMouse(false);
     if (mouseTile.tileX === this.tileX&&mouseTile.tileY === this.tileY&&state!=DIALOGUE_STATE) {
       this.image = signSelectImg;
-      if(mouseIsClicked){
+      if(mouseIsClicked&&state!=DIALOGUE_STATE){
         state = DIALOGUE_STATE;
-        NPC_dialogue = SIGN;
+        dialogueManager.startDialogue(this.d, character_dialogues[this.d].start);
         mouseIsClicked = false;
       }
     }else{this.image = signImg;}

@@ -68,7 +68,9 @@ function draw() {
   p.show();
 
   //checks dialogue state and does all that
-  checkDialogueState();
+  PX = p.x+p.w/2;
+  PY = p.y+p.h/2;
+  renderDialogue();
 
   //sets mouse clicked to false each frame for bug fixes
   mouseIsClicked = false;
