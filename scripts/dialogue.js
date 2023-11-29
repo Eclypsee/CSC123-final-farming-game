@@ -18,7 +18,7 @@ let character_dialogues = {
     },
     "bee_dialogue":{
       start: {
-        texts: ["bzz", "screeeeech", "bzzzzzzz", "..."],
+        texts: ["welcome, honoured guest", "here are the controls", "use wasd to move", "the shovel icon digs up crops\n(beware, you lose the crop completely)", "the scythe icon harvests crops", "the hand icon allows you to plant crops\n select the crop using your inventory", "use the numbers 1-6\n to navigate inventory", "keep the cat's health above 0!", "keep exploring"],
         currentTextIndex: 0,
         options: [{ text: "leave", action: () =>dialogueManager.endDialogue}],
         },
