@@ -32,10 +32,19 @@ let character_dialogues = {
     },
     "pig_dialogue":{
       start: {
-        texts: ["This is Elon Musk", "He really likes Teslas", "Goodbye"],
+        texts: ["This is a pig in a pig pen", "Why are you talking to a pig?", "Feed to get fertilizer?"],
         currentTextIndex: 0,
-        options: [{ text: "leave", action: () =>dialogueManager.endDialogue}],
+        options: [{ text: "feed", nextState: "feed"}, { text: "leave", action: () =>dialogueManager.endDialogue}],
         },
+      feed:{
+        text: ["Pick what crop you want to feed it. It does not care"],
+        options: [
+          { text: "feed carrot", nextState: "feed", action: () =>{let s = p.inventory.find(slot => slot[1] === carrotImg); if(s[2]>0)s[2]--}}, 
+          { text: "feed wheat", nextState: "feed", action: () =>{let s = p.inventory.find(slot => slot[1] === wheatImg); if(s[2]>0)s[2]--}},
+          { text: "feed potato", nextState: "feed", action: () =>{let s = p.inventory.find(slot => slot[1] === potatoImg); if(s[2]>0)s[2]--}},
+          { text: "leave", action: () =>dialogueManager.endDialogue}],
+          //have the pig give fertilizer
+      }
     },
     "home_merchant_dialogue":{
         start: {
