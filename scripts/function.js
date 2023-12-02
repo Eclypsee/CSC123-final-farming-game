@@ -45,22 +45,22 @@ function plantCrops(cropArray, cropSeedImg, clas){
   }
 }
 
-// function removeCropIfShoveling(cropArray) {
-//   let mouseTile = getTileUnderMouse();
-//   // Check if the player is shoveling
-//   if (shoveling) {
-//     // Go through each crop array
-//       for (let i = cropArray.length - 1; i >= 0; i--) {
-//         let crop = cropArray[i];
-//         // Check if the crop is on the current tile
-//         if (crop.tileX === mouseTile.tileX && crop.tileY === mouseTile.tileY) {
-//           cropArray.splice(i, 1); // Remove the crop from the array
-//           break; // Break out of the loop after removing a crop
-//         }
-//       }
+function removeCropIfShoveling(cropArray) {
+  let mouseTile = getTileUnderMouse();
+  // Check if the player is shoveling
+  if (shoveling) {
+    // Go through each crop array
+      for (let i = cropArray.length - 1; i >= 0; i--) {
+        let crop = cropArray[i];
+        // Check if the crop is on the current tile
+        if (crop.tileX === mouseTile.tileX && crop.tileY === mouseTile.tileY) {
+          cropArray.splice(i, 1); // Remove the crop from the array
+          break; // Break out of the loop after removing a crop
+        }
+      }
 
-//   }
-// }
+  }
+}
 
 function drawCatHealthBar(){
   let x = p.x-visualViewport.width/2+tileSize*1.2;
@@ -101,18 +101,14 @@ function toolIcon(toolType) {
   fill(170, 180, 220, 240);
   circle(x + s / 2, y + s / 2, s - 10);
 
-  // let isSelected = (toolType === 'planter' && planting) || (toolType === 'harvester' && harvesting) || (toolType === 'shoveler' && shoveling);
-  // let selectImg = toolType === 'planter' ? planterSelectImg : toolType === 'harvester' ? harvesterSelectImg : shovelerSelectImg;
-  // let normalImg = toolType === 'planter' ? planterImg : toolType === 'harvester' ? harvesterImg : shovelerImg;
-
-  let isSelected = (toolType === 'planter' && planting) || (toolType === 'harvester' && harvesting);
-  let selectImg = toolType === 'planter' ? planterSelectImg : harvesterSelectImg;
-  let normalImg = toolType === 'planter' ? planterImg : harvesterImg;
+  let isSelected = (toolType === 'planter' && planting) || (toolType === 'harvester' && harvesting) || (toolType === 'shoveler' && shoveling);
+  let selectImg = toolType === 'planter' ? planterSelectImg : toolType === 'harvester' ? harvesterSelectImg : shovelerSelectImg;
+  let normalImg = toolType === 'planter' ? planterImg : toolType === 'harvester' ? harvesterImg : shovelerImg;
 
   if (mouseIsClicked && worldX > x && worldX < x + s && worldY > y && worldY < y + s) {
     planting = toolType === 'planter' ? !planting : false;
     harvesting = toolType === 'harvester' ? !harvesting : false;
-    //shoveling = toolType === 'shoveler' ? !shoveling : false;
+    shoveling = toolType === 'shoveler' ? !shoveling : false;
   }
 
   let img = isSelected ? selectImg : normalImg;
