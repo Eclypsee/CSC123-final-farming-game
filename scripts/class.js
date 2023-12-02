@@ -80,6 +80,10 @@ class Player {
     let futureY = this.y + (keyIsDown(DOWN_ARROW) || keyIsDown(83) ? this.speedy : keyIsDown(UP_ARROW) || keyIsDown(87) ? -this.speedy : 0);
     if (!this.collides(futureX, this.y)) this.x = futureX;
     if (!this.collides(this.x, futureY)) this.y = futureY;
+    // let futureX = this.x + (keyIsDown(RIGHT_ARROW) || keyIsDown(68) ? deltaTime/17*this.speedx: keyIsDown(LEFT_ARROW) || keyIsDown(65) ? -this.speedx*deltaTime/17 : 0);
+    // let futureY = this.y + (keyIsDown(DOWN_ARROW) || keyIsDown(83) ? deltaTime/17*this.speedy : keyIsDown(UP_ARROW) || keyIsDown(87) ? -this.speedy*deltaTime/17 : 0);
+    // if (!this.collides(futureX, this.y)) this.x = futureX;
+    // if (!this.collides(this.x, futureY)) this.y = futureY;
   }
 
 collides(x, y) {
