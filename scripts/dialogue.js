@@ -55,12 +55,13 @@ let character_dialogues = {
       feed:{
         text: ["Pick what crop you want to feed it. It does not care"],
         options: [
-          { text: "feed carrot", nextState: "feed", action: () =>{let s = p.inventory.find(slot => slot[1] === carrotImg); if(s[2]>0)s[2]--}}, 
-          { text: "feed wheat", nextState: "feed", action: () =>{let s = p.inventory.find(slot => slot[1] === wheatImg); if(s[2]>0)s[2]--}},
-          { text: "feed potato", nextState: "feed", action: () =>{let s = p.inventory.find(slot => slot[1] === potatoImg); if(s[2]>0)s[2]--}},
+          { text: "feed carrot", nextState: "feed", action: () =>{let s = p.inventory.find(slot => slot[1] === carrotImg); if(s[2]>0){s[2]--;pig.feedCount++}}}, 
+          { text: "feed wheat", nextState: "feed", action: () =>{let s = p.inventory.find(slot => slot[1] === wheatImg); if(s[2]>0){s[2]--;pig.feedCount++}}},
+          { text: "feed potato", nextState: "feed", action: () =>{let s = p.inventory.find(slot => slot[1] === potatoImg); if(s[2]>0){s[2]--;pig.feedCount++}}},
+          { text: "get fertilizer", nextState: "feed", action: () =>{if(pig.feedCount%3==0&&pig.feedCount>=3){pig.feedCount-=3;fertilizer++}}},
           { text: "leave", action: () =>dialogueManager.endDialogue}],
           //have the pig give fertilizer
-      }
+      },
     },
     "home_merchant_dialogue":{
         start: {

@@ -77,11 +77,6 @@ function drawCatHealthBar(){
   image(catIconImg, x-tileSize/2, y-tileSize/1.5);
 }
 
-// function drawCurrencyBackground(){
-//   let x = p.x-visualViewport.width/2+tileSize;
-//   let y = p.y-visualViewport.height/2+tileSize*1.2;
-//   rect(x, y, tileSize*3/4, tileSize*3/4);
-// }
 function drawCoinMeter(){
   let x = p.x-visualViewport.width/2+tileSize*1.025;
   let y = p.y-visualViewport.height/2+tileSize*1.2;
@@ -106,6 +101,19 @@ function drawFishMeter(){
   fill(255);
   stroke(0);
   text(fish, x+tileSize/2.5, y+tileSize*0.175);
+}
+
+function drawFertilizerMeter(){
+  let x = p.x-visualViewport.width/2+tileSize*1.025;
+  let y = p.y-visualViewport.height/2+tileSize*1.83;
+  strokeWeight(6)
+  fertilizerImg.resize(tileSize/3, tileSize/3);
+  image(fertilizerImg, x, y)
+  textAlign(LEFT, CENTER);
+  textFont('retro', tileSize/4);
+  fill(255);
+  stroke(0);
+  text(fertilizer, x+tileSize/2.5, y+tileSize*0.175);
 }
 
 function toolIcon(toolType) {

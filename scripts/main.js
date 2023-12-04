@@ -66,6 +66,7 @@ function draw() {
   drawCatHealthBar();
   drawCoinMeter();
   drawFishMeter();
+  drawFertilizerMeter();
 
   //show player
   p.show();

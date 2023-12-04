@@ -18,6 +18,7 @@ let tileSize = 150;
 let catHealth = 100;//in percent
 let coins = 10;
 let fish = 3;
+let fertilizer = 0;
 
 let NPC_dialogue;
 
@@ -41,6 +42,7 @@ function preload() {
     'playerImg': 'assets/player.png',
     'dialogueImg': 'assets/dialogue.png',
     'coinImg': 'assets/coin.png',
+    'fertilizerImg': 'assets/fertilizer.png',
     'fishImg': 'assets/fish.png',
     'playerSpriteSheet': 'assets/playersprite.png',
     'wellImg': 'assets/NPC/well.png',
