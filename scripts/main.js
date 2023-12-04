@@ -58,7 +58,7 @@ function draw() {
   //render tools
   toolIcon('planter');
   toolIcon('harvester');
-  // toolIcon('shoveler');
+  toolIcon('shoveler');
 
   //render health bar/ui etc
   drawCatHealthBar();

@@ -89,6 +89,19 @@ function drawCoinMeter(){
   text(coins, x+tileSize/2.5, y+tileSize*0.175);
 }
 
+
+// function drawFishMeter(){
+//   let x = p.x-visualViewport.width/2+tileSize*1.025;
+//   let y = p.y-visualViewport.height/2+tileSize*1.2;
+//   coinImg.resize(tileSize/3, tileSize/3);
+//   image(coinImg, x, y)
+//   textAlign(LEFT, CENTER);
+//   textFont('retro', tileSize/4);
+//   fill(255);
+//   stroke(0);
+//   text(coins, x+tileSize/2.5, y+tileSize*0.175);
+// }
+
 function toolIcon(toolType) {
   const worldX = mouseX - visualViewport.width / 2 + p.x + p.w / 2;
   const worldY = mouseY - visualViewport.height / 2 + p.y + p.h / 2;
