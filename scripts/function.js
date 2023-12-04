@@ -71,7 +71,7 @@ function drawCatHealthBar(){
   rect(x, y-tileSize/3, tileSize*5, tileSize/5);
   fill(140, 35, 18)
   rect(x, y-tileSize/3, tileSize*5*(0.01*catHealth), tileSize/5);
-  catHealth-=0.009;
+  catHealth-=0.005;
   catHealth = constrain(catHealth, 0, 100)
   catIconImg.resize(tileSize, tileSize)
   image(catIconImg, x-tileSize/2, y-tileSize/1.5);
