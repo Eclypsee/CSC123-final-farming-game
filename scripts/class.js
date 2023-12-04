@@ -236,6 +236,7 @@ class NPC {
   }
   render(){if(this.room == map){this.image.resize(this.size, this.size);image(this.image, this.tileX*tileSize, this.tileY*tileSize);}}
 }
+class Cat extends NPC {constructor() {super(3*tileSize, 3, 3, room1, catImg, catSelectImg, "cat_dialogue");}}
 class Pig extends NPC {constructor() {super(2*tileSize, 6, 6, room0, pigImg, pigSelectImg, "pig_dialogue");}}
 class Merchant extends NPC {constructor() {super(3*tileSize, 1, 5, room0, merchantImg, merchantSelectImg, "home_merchant_dialogue");}}
 class Well extends NPC {

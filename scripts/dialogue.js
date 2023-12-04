@@ -1,5 +1,21 @@
 let PX, PY;
 let character_dialogues = {
+    "cat_dialogue":{
+      start: {
+        texts: ["Offer fish to Gato",],
+        currentTextIndex: 0,
+        options: [
+          { text: "feed fish", nextState: "start",  action: () =>{if(fish>0&&catHealth<85){fish--;catHealth+=15;}}}, 
+          { text: "talk", nextState: "talk"},
+          { text: "leave", action: () =>dialogueManager.endDialogue}],
+      },
+      talk: {
+        texts: ["har har har har","har har har har har har har har","har har har",],
+        currentTextIndex: 0,
+        options: [
+          { text: "leave", action: () =>dialogueManager.endDialogue}],
+      },
+    },
     "well_dialogue":{
       start: {
         text: "Toss coin into wishing well?",

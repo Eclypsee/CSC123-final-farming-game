@@ -17,7 +17,7 @@ let map = room0;
 let tileSize = 150;
 let catHealth = 100;//in percent
 let coins = 10;
-let fish = 0;
+let fish = 3;
 
 let NPC_dialogue;
 
@@ -41,6 +41,7 @@ function preload() {
     'playerImg': 'assets/player.png',
     'dialogueImg': 'assets/dialogue.png',
     'coinImg': 'assets/coin.png',
+    'fishImg': 'assets/fish.png',
     'playerSpriteSheet': 'assets/playersprite.png',
     'wellImg': 'assets/NPC/well.png',
     'wellSelectImg': 'assets/NPC/well_select.png',
@@ -53,7 +54,7 @@ function preload() {
     'catIconImg': 'assets/catIcon.png'
   };
   const NPCAssets = [
-    'bee', 'pig', 'merchant', 'well', 'sign'
+    'bee', 'pig', 'merchant', 'well', 'sign', 'cat'
   ];
   const cropAssets = [
     'wheat', 'carrot', 'potato'

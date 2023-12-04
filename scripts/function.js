@@ -77,9 +77,15 @@ function drawCatHealthBar(){
   image(catIconImg, x-tileSize/2, y-tileSize/1.5);
 }
 
+// function drawCurrencyBackground(){
+//   let x = p.x-visualViewport.width/2+tileSize;
+//   let y = p.y-visualViewport.height/2+tileSize*1.2;
+//   rect(x, y, tileSize*3/4, tileSize*3/4);
+// }
 function drawCoinMeter(){
   let x = p.x-visualViewport.width/2+tileSize*1.025;
   let y = p.y-visualViewport.height/2+tileSize*1.2;
+  strokeWeight(6)
   coinImg.resize(tileSize/3, tileSize/3);
   image(coinImg, x, y)
   textAlign(LEFT, CENTER);
@@ -89,18 +95,18 @@ function drawCoinMeter(){
   text(coins, x+tileSize/2.5, y+tileSize*0.175);
 }
 
-
-// function drawFishMeter(){
-//   let x = p.x-visualViewport.width/2+tileSize*1.025;
-//   let y = p.y-visualViewport.height/2+tileSize*1.2;
-//   coinImg.resize(tileSize/3, tileSize/3);
-//   image(coinImg, x, y)
-//   textAlign(LEFT, CENTER);
-//   textFont('retro', tileSize/4);
-//   fill(255);
-//   stroke(0);
-//   text(coins, x+tileSize/2.5, y+tileSize*0.175);
-// }
+function drawFishMeter(){
+  let x = p.x-visualViewport.width/2+tileSize*1.025;
+  let y = p.y-visualViewport.height/2+tileSize*1.5;
+  strokeWeight(6)
+  fishImg.resize(tileSize/3, tileSize/3);
+  image(fishImg, x, y)
+  textAlign(LEFT, CENTER);
+  textFont('retro', tileSize/4);
+  fill(255);
+  stroke(0);
+  text(fish, x+tileSize/2.5, y+tileSize*0.175);
+}
 
 function toolIcon(toolType) {
   const worldX = mouseX - visualViewport.width / 2 + p.x + p.w / 2;
