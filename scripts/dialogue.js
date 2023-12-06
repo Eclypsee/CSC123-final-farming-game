@@ -1,5 +1,20 @@
 let PX, PY;
 let character_dialogues = {
+  "start_dialogue":{
+    start: {
+      texts: ["Welcome to Stardew Peak\nWe are so much better than other farming games\n",],
+      currentTextIndex: 0,
+      options: [
+        { text: "enter the arena", nextState: "start", action: () =>state=GAME_STATE}, 
+        { text: "what tf are the controls", nextState: "controls"}],
+    },
+    controls: {
+      texts: ["use wasd to move", "the shovel icon digs up crops\n(beware, you lose the crop completely)", "the scythe icon harvests crops", "the hand icon allows you to plant crops\n select the crop using your inventory", "use the numbers 1-6\n to navigate inventory", "feed the cat.", "keep exploring", "talk to the bee if you ever forget the controls"],
+      currentTextIndex: 0,
+      options: [
+        { text: "back", nextState: "start",},]
+    },
+  },
     "cat_dialogue":{
       start: {
         texts: ["Offer fish to Gato",],
@@ -194,7 +209,7 @@ let dialogueManager = {
 };
 
 function renderDialogue() {
-  if (state === DIALOGUE_STATE && dialogueManager.currentDialogue) {
+  if ((state === DIALOGUE_STATE || state === START_STATE) && dialogueManager.currentDialogue) {
     rectMode(CENTER)
     fill(240)
     stroke(0)
@@ -272,7 +287,7 @@ function checkForOptionSelection() {
 
 
 function mouseClicked() {
-  if (state === DIALOGUE_STATE && dialogueManager.currentDialogue) {
+  if ((state === DIALOGUE_STATE || state === START_STATE) && dialogueManager.currentDialogue) {
       if (dialogueManager.currentDialogue.texts) {
         if (dialogueManager.currentTextIndex < dialogueManager.currentDialogue.texts.length - 1) {
           // If not the last text, go to next text

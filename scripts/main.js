@@ -29,51 +29,52 @@ function setup() {
 ///////////draw///////////////////
 function draw() {
   resizeCanvas(visualViewport.width, visualViewport.height);
+    //checks game state and moves camera
+    checkGameState();
+    //update crops
+    updateCrop(wheats, p);
+    updateCrop(carrots, p);
+    updateCrop(potatoes, p);
 
-  //checks game state and moves camera
-  checkGameState();
+    //render and collide npcs
+    well.collision();
+    well.render();
+    pig.collision();
+    pig.render();
+    bee.collision();
+    bee.render();
+    merchant.collision();
+    merchant.render();
+    cat.collision();
+    cat.render();
 
-  //update crops
-  updateCrop(wheats, p);
-  updateCrop(carrots, p);
-  updateCrop(potatoes, p);
+    sr.collision();
+    sr.render();
+    sb.collision();
+    sb.render();
+    sl.collision();
+    sl.render();
+    //render tools
+    toolIcon('planter');
+    toolIcon('harvester');
+    toolIcon('shoveler');
 
-  //render and collide npcs
-  well.collision();
-  well.render();
-  pig.collision();
-  pig.render();
-  bee.collision();
-  bee.render();
-  merchant.collision();
-  merchant.render();
-  cat.collision();
-  cat.render();
+    //render health bar/ui etc
+    //drawCurrencyBackground();
+    drawCatHealthBar();
+    drawCoinMeter();
+    drawFishMeter();
+    drawFertilizerMeter();
 
-  sr.collision();
-  sr.render();
-  sb.collision();
-  sb.render();
-  sl.collision();
-  sl.render();
-  //render tools
-  toolIcon('planter');
-  toolIcon('harvester');
-  toolIcon('shoveler');
+    //show player
+    p.show();
+    
+    //checks dialogue state and does all that
+    PX = p.x+p.w/2;
+    PY = p.y+p.h/2;
 
-  //render health bar/ui etc
-  //drawCurrencyBackground();
-  drawCatHealthBar();
-  drawCoinMeter();
-  drawFishMeter();
-  drawFertilizerMeter();
-
-  //show player
-  p.show();
-
-  //checks dialogue state and does all that
-  PX = p.x+p.w/2;
-  PY = p.y+p.h/2;
+    if(!hasrunstart){dialogueManager.startDialogue("start_dialogue", character_dialogues["start_dialogue"].start);hasrunstart=true;}
+  
   renderDialogue();
 
   //sets mouse clicked to false each frame for bug fixes
@@ -81,3 +82,4 @@ function draw() {
 
 }
 
+let hasrunstart=false;

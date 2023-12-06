@@ -5,8 +5,9 @@ const MERCHANT = 1231312;
 const WELL = 444444;
 const DIALOGUE_STATE = 192836;
 const GAME_STATE = 927363;
+const START_STATE = 1928747182;
 
-let state = GAME_STATE;
+let state = START_STATE;
 
 let mouseIsClicked = false;
 let planting = false;
@@ -37,6 +38,7 @@ let potatoes = [];
 
 function preload() {
   const assets = {
+    'background':'assets/background.png',
     'homeImg': 'assets/home.png',
     'barnImg': 'assets/barn.png',
     'playerImg': 'assets/player.png',
