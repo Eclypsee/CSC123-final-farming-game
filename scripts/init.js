@@ -17,6 +17,7 @@ let shoveling = false;
 let map = room0;
 let tileSize = 150;
 let catHealth = 100;//in percent
+let catDrain = 0.005;
 let coins = 1000;
 let fish = 3;
 let fertilizer = 0;
@@ -56,7 +57,9 @@ function preload() {
     'planterSelectImg': 'assets/planter_select.png',
     'shovelerImg': 'assets/shovel.png',
     'shovelerSelectImg': 'assets/shovel_select.png',
-    'catIconImg': 'assets/catIcon.png'
+    'catIconImg': 'assets/catIcon.png',
+    'healthGainedImg': 'assets/catFed.png',
+    'landBoughtImg': 'assets/landbought.png'
   };
   const NPCAssets = [
     'bee', 'pig', 'merchant', 'well', 'sign', 'cat'

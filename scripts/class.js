@@ -317,7 +317,11 @@ class animateImage{
     this.diff+=3;
     if(this.y>p.y-visualViewport.height/6){
       tint(255, this.alpha);
+      if(this.img!=healthGainedImg && this.img!=landBoughtImg ){
       image(this.img, this.x, this.y, tileSize, tileSize);
+      }else{
+        image(this.img, PX-visualViewport.width/2, PY-visualViewport.height/2, visualViewport.width, visualViewport.height);
+      }
     }else {
       const index = this.array.indexOf(this);
       if (index > -1) {

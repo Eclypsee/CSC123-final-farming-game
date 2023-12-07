@@ -28,7 +28,7 @@ let character_dialogues = {
         texts: ["Offer fish to Gato",],
         currentTextIndex: 0,
         options: [
-          { text: "feed fish", nextState: "start",  action: () =>{if(fish>0&&catHealth<85){fish--;catHealth+=15;}}}, 
+          { text: "feed fish", nextState: "start",  action: () =>{if(fish>0&&catHealth<85){fish--;catHealth+=15; let asdf = new animateImage(healthGainedImg)}}}, 
           { text: "talk", nextState: "talk"},
           { text: "leave", action: () =>dialogueManager.endDialogue}],
       },
@@ -115,9 +115,9 @@ let character_dialogues = {
         purchaseLand: {
             text: "Here's how you unlock more land(each plot cost 10 coin)",
             options: [
-                { text: "Buy east plot", nextState: "purchaseLand", action: () => {if(sr.isLocked&&coins>=10) {coins -= 10;room0[4][8] = 2;sr.isLocked = false;let asdf = new animateImage(signImg)}}},
-                { text: "Buy south plot", nextState: "purchaseLand", action: () => {if(sb.isLocked&&coins>=10) {coins -= 10;room0[8][4] = 3;sb.isLocked = false;let asdf = new animateImage(signImg)}}},
-                { text: "Buy west plot", nextState: "purchaseLand", action: () => {if(sl.isLocked&&coins>=10) {coins -= 10;room0[4][0] = 4;sl.isLocked = false;let asdf = new animateImage(signImg)}}},                
+                { text: "Buy east plot", nextState: "purchaseLand", action: () => {if(sr.isLocked&&coins>=10) {coins -= 10;room0[4][8] = 2;sr.isLocked = false;let asdf = new animateImage(landBoughtImg)}}},
+                { text: "Buy south plot", nextState: "purchaseLand", action: () => {if(sb.isLocked&&coins>=10) {coins -= 10;room0[8][4] = 3;sb.isLocked = false;let asdf = new animateImage(landBoughtImg)}}},
+                { text: "Buy west plot", nextState: "purchaseLand", action: () => {if(sl.isLocked&&coins>=10) {coins -= 10;room0[4][0] = 4;sl.isLocked = false;let asdf = new animateImage(landBoughtImg)}}},                
                 { text: "Goodbye", nextState: "end" }
             ]
             },
