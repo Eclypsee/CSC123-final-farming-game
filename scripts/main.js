@@ -6,13 +6,7 @@ function setup() {
   //initialize player
   p = new Player(map[0].length*tileSize/2-tileSize/2, map.length*tileSize/2-tileSize/2, tileSize*5/6);
 
-  //initialize crops
-  wheat = new Wheat(tileSize, 6, 2, room0);
-  wheats.push(wheat);
-  carrot = new Carrot(tileSize, 5, 2, room0);
-  carrots.push(carrot);
-  potato = new Potato(tileSize, 7, 2, room0);
-  potatoes.push(potato);
+  
 
   //initialize NPCs
   pig = new Pig();
@@ -33,13 +27,12 @@ function draw() {
   
   //checks game state and moves camera
   checkGameState();
-  
-  if(state==GAME_STATE|| state==DIALOGUE_STATE){
+
+  if(state!=START_STATE){
   //update crops
   updateCrop(wheats, p);
   updateCrop(carrots, p);
   updateCrop(potatoes, p);
-
   //render and collide npcs
   well.collision();
   well.render();

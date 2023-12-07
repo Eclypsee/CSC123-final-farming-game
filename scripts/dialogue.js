@@ -5,7 +5,15 @@ let character_dialogues = {
       texts: ["Welcome to Farm Farmland\nWe are so much better than other farming games\n",],
       currentTextIndex: 0,
       options: [
-        { text: "Enter the farm", nextState: "start", action: () =>{state=GAME_STATE; curImg = homeImg}}, 
+        { text: "Enter the farm", nextState: "start", action: () =>{
+          state=GAME_STATE; 
+          curImg = homeImg;//initialize crops
+          wheat = new Wheat(tileSize, 6, 2, room0);
+          wheats.push(wheat);
+          carrot = new Carrot(tileSize, 5, 2, room0);
+          carrots.push(carrot);
+          potato = new Potato(tileSize, 7, 2, room0);
+          potatoes.push(potato);}}, 
         { text: "What are the controls?", nextState: "controls"}],
     },
     controls: {

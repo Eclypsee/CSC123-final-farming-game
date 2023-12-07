@@ -152,7 +152,7 @@ function updateCrop(crops, player) {
         crops.splice(i, 1); // Remove harvested crop from the array
       }
     }
-  }
+}
 }
 
 function checkGameState(){
