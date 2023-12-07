@@ -2,11 +2,11 @@ let PX, PY;
 let character_dialogues = {
   "start_dialogue":{
     start: {
-      texts: ["Welcome to Stardew Peak\nWe are so much better than other farming games\n",],
+      texts: ["Welcome to Farm Farmland\nWe are so much better than other farming games\n",],
       currentTextIndex: 0,
       options: [
-        { text: "enter the arena", nextState: "start", action: () =>{state=GAME_STATE; curImg = homeImg}}, 
-        { text: "what tf are the controls", nextState: "controls"}],
+        { text: "Enter the farm", nextState: "start", action: () =>{state=GAME_STATE; curImg = homeImg}}, 
+        { text: "What are the controls?", nextState: "controls"}],
     },
     controls: {
       texts: ["use wasd to move", "the shovel icon digs up crops\n(beware, you lose the crop completely)", "the scythe icon harvests crops", "the hand icon allows you to plant crops\n select the crop using your inventory", "use the numbers 1-6\n to navigate inventory", "feed the cat.", "keep exploring", "talk to the bee if you ever forget the controls"],
