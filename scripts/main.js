@@ -28,7 +28,7 @@ function draw() {
   //checks game state and moves camera
   checkGameState();
 
-  if(state!=START_STATE){
+  if(state!=START_STATE&&state!=DEATH_STATE){
   //update crops
   updateCrop(wheats, p);
   updateCrop(carrots, p);
@@ -66,6 +66,10 @@ function draw() {
   
   //show player
   p.show();
+  }else if(state==DEATH_STATE){
+    fill(0,0,0, 220)
+    rect(PX-visualViewport.width/2, PY-visualViewport.height/2, visualViewport.width, visualViewport.height);
+    image(youDiedImg, PX-visualViewport.width/2, PY-visualViewport.height/2, visualViewport.width, visualViewport.height);
   }
   
   //checks dialogue state and does all that

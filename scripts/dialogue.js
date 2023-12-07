@@ -17,11 +17,17 @@ let character_dialogues = {
         { text: "What are the controls?", nextState: "controls"}],
     },
     controls: {
-      texts: ["use wasd to move", "the shovel icon digs up crops\n(beware, you lose the crop completely)", "the scythe icon harvests crops", "the hand icon allows you to plant crops\n select the crop using your inventory", "use the numbers 1-6\n to navigate inventory", "feed the cat.", "keep exploring", "talk to the bee if you ever forget the controls"],
+      texts: ["use wasd to move", "the shovel icon digs up crops\n(beware, you lose the crop completely)", "the scythe icon harvests crops", "the hand icon allows you to plant crops\n select the crop using your inventory", "use the numbers 1-6\n to navigate inventory", "feed the cat.", "on death, you lose all coins and inventory", "keep exploring", "talk to the bee if you ever forget the controls"],
       currentTextIndex: 0,
       options: [
         { text: "back", nextState: "start",},]
     },
+    death:{
+      texts: ["", "Your cat has died and its ghost killed you", "You can choose to respawn or reload the page to reset"],
+      currentTextIndex: 0,
+      options: [
+        { text: "respawn(all inventory and coins are lost)", nextState: "start",},]
+    }
   },
     "cat_dialogue":{
       start: {
@@ -295,6 +301,7 @@ function checkForOptionSelection() {
 
 
 function mouseClicked() {
+  if(state===DEATH_STATE){dialogueManager.startDialogue("start_dialogue", character_dialogues["start_dialogue"].death); state=START_STATE; catHealth = 100; coins = 0; map=room0; curImg = homeImg; p.x = map[0].length*tileSize/2-tileSize/2; p.y = map.length*tileSize/2-tileSize/2; p.inventory = [[1, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];}
   if ((state === DIALOGUE_STATE || state === START_STATE) && dialogueManager.currentDialogue) {
       if (dialogueManager.currentDialogue.texts) {
         if (dialogueManager.currentTextIndex < dialogueManager.currentDialogue.texts.length - 1) {

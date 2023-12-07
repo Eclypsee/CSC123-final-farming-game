@@ -75,6 +75,9 @@ function drawCatHealthBar(){
   catHealth = constrain(catHealth, 0, 100)
   catIconImg.resize(tileSize, tileSize)
   image(catIconImg, x-tileSize/2, y-tileSize/1.5);
+  if(catHealth<=1){
+    state=DEATH_STATE;
+  }
 }
 
 function drawCoinMeter(){
