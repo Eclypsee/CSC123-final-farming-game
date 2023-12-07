@@ -123,6 +123,7 @@ collides(x, y) {
       this.addToInventory(crop.img, 1);
       // Remove the wheat from the room
       coins++;
+      let k = new animateImage(crop.img);
       return true; // Return true to indicate the wheat has been harvested
     }
     return false; // Return false if the wheat is not harvestable
@@ -297,4 +298,33 @@ class lockedSign extends NPC {
     }
   }
   render(){if(this.room==map&&this.isLocked){this.image.resize(this.size, this.size);image(this.image, this.tileX * tileSize,this.tileY*tileSize-tileSize*0.);}}
+}
+
+class animateImage{
+  constructor(image){
+    this.x = p.x;
+    this.y = p.y;
+    this.diff = 0;
+    this.alpha = 255;
+    this.img = image;
+    this.array = animatedImages;
+    this.array.push(this); 
+  }
+  render(){
+    this.alpha-=.5;
+    this.y=p.y;
+    this.y-=this.diff;
+    this.diff+=3;
+    if(this.y>p.y-visualViewport.height/6){
+      tint(255, this.alpha);
+      image(this.img, this.x, this.y, tileSize, tileSize);
+    }else {
+      const index = this.array.indexOf(this);
+      if (index > -1) {
+        this.array.splice(index, 1);
+      }
+    }
+
+    tint(255, 255);
+  }
 }

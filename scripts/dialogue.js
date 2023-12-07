@@ -46,11 +46,11 @@ let character_dialogues = {
           if (coins >= 1) {
             coins--;
             let k = Math.floor(Math.random() * 20) + 1;
-            if(k==1)coins+=10;
-            if(k==2)p.addToInventory(potatoImg, 2)
-            if(k==3)p.addToInventory(wheatImg, 2)
-            if(k==4)p.addToInventory(carrotImg, 2)
-            if(k==5)fish++;
+            if(k==1){coins+=10;let asdf = new animateImage(coinImg);}
+            if(k==2){p.addToInventory(potatoImg, 2);let asdf = new animateImage(potatoImg)}
+            if(k==3){p.addToInventory(wheatImg, 2);let asdf = new animateImage(wheatImg)}
+            if(k==4){p.addToInventory(carrotImg, 2);let asdf = new animateImage(carrotImg)}
+            if(k==5){fish++;let asdf = new animateImage(fishImg)}
           }
         }},{ text: "leave", action: () =>dialogueManager.endDialogue}],
         },
@@ -81,7 +81,7 @@ let character_dialogues = {
           { text: "feed carrot", nextState: "feed", action: () =>{let s = p.inventory.find(slot => slot[1] === carrotImg); if(s[2]>0){s[2]--;pig.feedCount++}}}, 
           { text: "feed wheat", nextState: "feed", action: () =>{let s = p.inventory.find(slot => slot[1] === wheatImg); if(s[2]>0){s[2]--;pig.feedCount++}}},
           { text: "feed potato", nextState: "feed", action: () =>{let s = p.inventory.find(slot => slot[1] === potatoImg); if(s[2]>0){s[2]--;pig.feedCount++}}},
-          { text: "get fertilizer", nextState: "feed", action: () =>{if(pig.feedCount%3==0&&pig.feedCount>=3){pig.feedCount-=3;fertilizer++}}},
+          { text: "get fertilizer", nextState: "feed", action: () =>{if(pig.feedCount%3==0&&pig.feedCount>=3){pig.feedCount-=3;fertilizer++; let asdf = new animateImage(fertilizerImg)}}},
           { text: "leave", action: () =>dialogueManager.endDialogue}],
           //have the pig give fertilizer
       },
@@ -105,28 +105,28 @@ let character_dialogues = {
         buy: {
         text: "Here's what I have for sale. Take your time to browse.",
         options: [
-            { text: "Buy carrot seeds ", nextState: "buy", action: () => {if(coins>=3){p.addToInventory(carrotSeedImg, 1);coins-=3}}},
-            { text: "Buy potato seeds ", nextState: "buy", action: () => {if(coins>=3){p.addToInventory(potatoSeedImg, 1);coins-=3}}},
-            { text: "Buy wheat seeds ", nextState: "buy", action: () => {if(coins>=3){p.addToInventory(wheatSeedImg, 1);coins-=3}}},
-            { text: "Buy fish", nextState: "buy", action: () => {if(coins>=6){fish++;coins-=6}}},
+            { text: "Buy carrot seeds for 3 coin", nextState: "buy", action: () => {if(coins>=3){p.addToInventory(carrotSeedImg, 1);coins-=3; let asdf = new animateImage(carrotSeedImg)}}},
+            { text: "Buy potato seeds 3 coin", nextState: "buy", action: () => {if(coins>=3){p.addToInventory(potatoSeedImg, 1);coins-=3; let asdf = new animateImage(potatoSeedImg)}}},
+            { text: "Buy wheat seeds 3 coin", nextState: "buy", action: () => {if(coins>=3){p.addToInventory(wheatSeedImg, 1);coins-=3; let asdf = new animateImage(wheatSeedImg)}}},
+            { text: "Buy fish for 6 coin", nextState: "buy", action: () => {if(coins>=6){fish++;coins-=6; let asdf = new animateImage(fishImg)}}},
             { text: "Goodbye", nextState: "end" }
         ]
         },
         purchaseLand: {
-            text: "Here's how you unlock more land",
+            text: "Here's how you unlock more land(each plot cost 10 coin)",
             options: [
-                { text: "Buy east plot", nextState: "purchaseLand", action: () => {if(sr.isLocked&&coins>=10) {coins -= 10;room0[4][8] = 2;sr.isLocked = false;}}},
-                { text: "Buy south plot", nextState: "purchaseLand", action: () => {if(sb.isLocked&&coins>=10) {coins -= 10;room0[8][4] = 3;sb.isLocked = false;}}},
-                { text: "Buy west plot", nextState: "purchaseLand", action: () => {if(sl.isLocked&&coins>=10) {coins -= 10;room0[4][0] = 4;sl.isLocked = false;}}},                
+                { text: "Buy east plot", nextState: "purchaseLand", action: () => {if(sr.isLocked&&coins>=10) {coins -= 10;room0[4][8] = 2;sr.isLocked = false;let asdf = new animateImage(signImg)}}},
+                { text: "Buy south plot", nextState: "purchaseLand", action: () => {if(sb.isLocked&&coins>=10) {coins -= 10;room0[8][4] = 3;sb.isLocked = false;let asdf = new animateImage(signImg)}}},
+                { text: "Buy west plot", nextState: "purchaseLand", action: () => {if(sl.isLocked&&coins>=10) {coins -= 10;room0[4][0] = 4;sl.isLocked = false;let asdf = new animateImage(signImg)}}},                
                 { text: "Goodbye", nextState: "end" }
             ]
             },
         sell: {
         text: "What would you like to sell today?",
         options: [
-            { text: "Sell carrot", nextState: "sell", action: () => {p.inventory.forEach(slot => {if (slot[1] === carrotImg && slot[2]>0) {slot[2]--;coins+=1;}});} },
-            { text: "Sell potato", nextState: "sell", action: () => {p.inventory.forEach(slot => {if (slot[1] === potatoImg && slot[2]>0) {slot[2]--;coins+=1;}});}},
-            { text: "Sell wheat", nextState: "sell", action: () => {p.inventory.forEach(slot => {if (slot[1] === wheatImg && slot[2]>0) {slot[2]--;coins+=1;}}); }},
+            { text: "Sell carrot to gain 1 coin", nextState: "sell", action: () => {p.inventory.forEach(slot => {if (slot[1] === carrotImg && slot[2]>0) {slot[2]--;coins+=1;}});} },
+            { text: "Sell potato to gain 1 coin", nextState: "sell", action: () => {p.inventory.forEach(slot => {if (slot[1] === potatoImg && slot[2]>0) {slot[2]--;coins+=1;}});}},
+            { text: "Sell wheat to gain 1 coin", nextState: "sell", action: () => {p.inventory.forEach(slot => {if (slot[1] === wheatImg && slot[2]>0) {slot[2]--;coins+=1;}}); }},
             { text: "Goodbye", nextState: "end" }
         ]
         },

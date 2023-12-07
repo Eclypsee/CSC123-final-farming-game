@@ -77,6 +77,10 @@ function draw() {
   
   renderDialogue();
 
+  for(let i=0;i<animatedImages.length;i++){
+    animatedImages[i].render();
+  }
+
   //sets mouse clicked to false each frame for bug fixes
   mouseIsClicked = false;
 

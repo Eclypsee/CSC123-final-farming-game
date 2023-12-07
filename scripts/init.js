@@ -17,7 +17,7 @@ let shoveling = false;
 let map = room0;
 let tileSize = 150;
 let catHealth = 100;//in percent
-let coins = 10;
+let coins = 1000;
 let fish = 3;
 let fertilizer = 0;
 
@@ -35,6 +35,7 @@ let well;
 let wheats = [];
 let carrots = [];
 let potatoes = [];
+let animatedImages = [];
 
 function preload() {
   const assets = {
