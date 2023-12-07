@@ -24,56 +24,63 @@ function setup() {
   sb = new lockedSign(4, 8);
   sl = new lockedSign(0, 4);
   frameRate(60);
+  textFont('retro');
 }
 
 ///////////draw///////////////////
 function draw() {
   resizeCanvas(visualViewport.width, visualViewport.height);
-    //checks game state and moves camera
-    checkGameState();
-    //update crops
-    updateCrop(wheats, p);
-    updateCrop(carrots, p);
-    updateCrop(potatoes, p);
+  
+  //checks game state and moves camera
+  checkGameState();
+  
+  if(state==GAME_STATE){
+  //update crops
+  updateCrop(wheats, p);
+  updateCrop(carrots, p);
+  updateCrop(potatoes, p);
 
-    //render and collide npcs
-    well.collision();
-    well.render();
-    pig.collision();
-    pig.render();
-    bee.collision();
-    bee.render();
-    merchant.collision();
-    merchant.render();
-    cat.collision();
-    cat.render();
+  //render and collide npcs
+  well.collision();
+  well.render();
+  pig.collision();
+  pig.render();
+  bee.collision();
+  bee.render();
+  merchant.collision();
+  merchant.render();
+  cat.collision();
+  cat.render();
 
-    sr.collision();
-    sr.render();
-    sb.collision();
-    sb.render();
-    sl.collision();
-    sl.render();
-    //render tools
-    toolIcon('planter');
-    toolIcon('harvester');
-    toolIcon('shoveler');
+  sr.collision();
+  sr.render();
+  sb.collision();
+  sb.render();
+  sl.collision();
+  sl.render();
+  
+  //render tools
+  toolIcon('planter');
+  toolIcon('harvester');
+  toolIcon('shoveler');
 
-    //render health bar/ui etc
-    //drawCurrencyBackground();
-    drawCatHealthBar();
-    drawCoinMeter();
-    drawFishMeter();
-    drawFertilizerMeter();
+  //render health bar/ui etc
+  //drawCurrencyBackground();
+  drawCatHealthBar();
+  drawCoinMeter();
+  drawFishMeter();
+  drawFertilizerMeter();
+  
+  //show player
+  p.show();
+  }
+  
+  //checks dialogue state and does all that
+  PX = p.x+p.w/2;
+  PY = p.y+p.h/2;
+  
 
-    //show player
-    p.show();
-    
-    //checks dialogue state and does all that
-    PX = p.x+p.w/2;
-    PY = p.y+p.h/2;
-
-    if(!hasrunstart){dialogueManager.startDialogue("start_dialogue", character_dialogues["start_dialogue"].start);hasrunstart=true;}
+  if(!hasrunstart&&state==START_STATE){dialogueManager.startDialogue("start_dialogue", character_dialogues["start_dialogue"].start);hasrunstart=true;curImg = background}
   
   renderDialogue();
 

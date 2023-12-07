@@ -5,7 +5,7 @@ let character_dialogues = {
       texts: ["Welcome to Stardew Peak\nWe are so much better than other farming games\n",],
       currentTextIndex: 0,
       options: [
-        { text: "enter the arena", nextState: "start", action: () =>state=GAME_STATE}, 
+        { text: "enter the arena", nextState: "start", action: () =>{state=GAME_STATE; curImg = homeImg}}, 
         { text: "what tf are the controls", nextState: "controls"}],
     },
     controls: {
