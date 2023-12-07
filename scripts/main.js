@@ -34,7 +34,7 @@ function draw() {
   //checks game state and moves camera
   checkGameState();
   
-  if(state==GAME_STATE){
+  if(state==GAME_STATE|| state==DIALOGUE_STATE){
   //update crops
   updateCrop(wheats, p);
   updateCrop(carrots, p);
