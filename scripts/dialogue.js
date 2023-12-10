@@ -18,7 +18,7 @@ let character_dialogues = {
         { text: "What are the controls?", nextState: "controls"}],
     },
     controls: {
-      texts: ["use wasd to move", "the shovel icon digs up crops\n(beware, you lose the crop completely)", "the scythe icon harvests crops", "the hand icon allows you to plant crops\n select the crop using your inventory", "use the numbers 1-6\n to navigate inventory", "feed the cat.", "on death, you lose all coins and inventory", "keep exploring", "talk to the bee if you ever forget the controls"],
+      texts: ["use wasd to move", "the shovel icon digs up crops\n(beware, you lose the crop completely)", "the scythe icon harvests crops", "the hand icon allows you to plant crops\n select the crop using your inventory", "if you have any fertilizer and select the\nhand icon on a crop, it also fertilizes it", "use the numbers 1-6\n to navigate inventory", "feed the cat.", "on death, you lose all coins and inventory", "keep exploring", "talk to the bee if you ever forget the controls"],
       currentTextIndex: 0,
       options: [
         { text: "back", nextState: "start",},]
@@ -30,6 +30,16 @@ let character_dialogues = {
         { text: "respawn(all inventory and coins are lost)", nextState: "start",},]
     }
   },
+  "fisherman_dialogue":{
+    start: {
+      texts: ["Do you wish to try your hand at fishing?",],
+      currentTextIndex: 0,
+      options: [
+        { text: "fish(cost 1 coin)", nextState: "start", action: () =>{if(coins>0){coins--;state = FISH_STATE;}}},
+        { text: "leave",  action: () =>dialogueManager.endDialogue},
+        ],
+    },
+  },
     "cat_dialogue":{
       start: {
         texts: ["Offer fish to Gato",],
@@ -40,7 +50,7 @@ let character_dialogues = {
           { text: "leave", action: () =>dialogueManager.endDialogue}],
       },
       talk: {
-        texts: ["har har har har","har har har har har har har har","har har har",],
+        texts: ["hello","hello","goodbye"],
         currentTextIndex: 0,
         options: [
           { text: "leave", action: () =>dialogueManager.endDialogue}],
@@ -64,7 +74,7 @@ let character_dialogues = {
     },
     "bee_dialogue":{
       start: {
-        texts: ["welcome, honoured guest", "here are the controls", "use wasd to move", "the shovel icon digs up crops\n(beware, you lose the crop completely)", "the scythe icon harvests crops", "the hand icon allows you to plant crops\n select the crop using your inventory", "use the numbers 1-6\n to navigate inventory", "feed the cat.", "keep exploring"],
+        texts: ["Welcome Honoured Guest", "use wasd to move", "the shovel icon digs up crops\n(beware, you lose the crop completely)", "the scythe icon harvests crops", "the hand icon allows you to plant crops\n select the crop using your inventory", "if you have any fertilizer and select the\nhand icon on a crop, it also fertilizes it", "use the numbers 1-6\n to navigate inventory", "feed the cat.", "on death, you lose all coins and inventory", "keep exploring", "talk to the bee if you ever forget the controls"],
         currentTextIndex: 0,
         options: [{ text: "leave", action: () =>dialogueManager.endDialogue}],
         },
@@ -300,36 +310,3 @@ function checkForOptionSelection() {
 }
 
 
-
-function mouseClicked() {
-  if(!song.isPlaying()){song.play()}
-  if(state===DEATH_STATE){dialogueManager.startDialogue("start_dialogue", character_dialogues["start_dialogue"].death); state=START_STATE; catHealth = 100; coins = 0; map=room0; curImg = homeImg; p.x = map[0].length*tileSize/2-tileSize/2; p.y = map.length*tileSize/2-tileSize/2; p.inventory = [[1, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];}
-  if ((state === DIALOGUE_STATE || state === START_STATE) && dialogueManager.currentDialogue) {
-      if (dialogueManager.currentDialogue.texts) {
-        if (dialogueManager.currentTextIndex < dialogueManager.currentDialogue.texts.length - 1) {
-          // If not the last text, go to next text
-          dialogueManager.nextText();
-        } else {
-          // If it's the last text, check for option selections
-          checkForOptionSelection();
-        }
-      } else {
-        // If there are no multiple texts, check for option selections
-        checkForOptionSelection();
-      }
-  }
-  console.log("click");
-  mouseIsClicked = true;
-  removeCropIfShoveling(wheats);
-  removeCropIfShoveling(carrots);
-  removeCropIfShoveling(potatoes);
-  let mouseTile = getTileUnderMouse();
-  
-  // Check if the clicked tile is plantable ground and the player is in planting mode
-  if (map[mouseTile.tileY][mouseTile.tileX] == 'p' && planting) {
-    plantCrops(wheats, wheatSeedImg, Wheat)
-    plantCrops(carrots, carrotSeedImg, Carrot)
-    plantCrops(potatoes, potatoSeedImg, Potato)
-    
-  }
-}

@@ -9,7 +9,7 @@ class Player {
     this.speedy = size/20;
     this.inventory = [[1, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];//[[isSelected, type, num]]
     this.is = size / 2;//inventory size(its a square)
-    this.direction = 'right'
+    this.direction = 'right';
     this.isMoving = false;
     this.spriteSheet = playerSpriteSheet; // Load your sprite sheet here
     this.spriteWidth = 40; // Width of each sprite frame
@@ -202,8 +202,8 @@ class Crop {
       image(this.images[this.stage], x, y, this.w, this.w);
   }
 }
-class Wheat extends Crop {constructor(size, tx, ty, r) {super("wheat", size, tx, ty, r, wheatImg, wheatSeedImg, 1600);}}
-class Carrot extends Crop {constructor(size, tx, ty, r) {super("carrot", size, tx, ty, r, carrotImg, carrotSeedImg, 1300);}} 
+class Wheat extends Crop {constructor(size, tx, ty, r) {super("wheat", size, tx, ty, r, wheatImg, wheatSeedImg, 3000);}}
+class Carrot extends Crop {constructor(size, tx, ty, r) {super("carrot", size, tx, ty, r, carrotImg, carrotSeedImg, 2000);}} 
 class Potato extends Crop {constructor(size, tx, ty, r) {super("potato", size, tx, ty, r, potatoImg, potatoSeedImg, 1000);}}
 
 ///////////////////////////////////////////////////  NPC   /////////////////////////////////////////////////////////////////////////////////
@@ -238,6 +238,7 @@ class NPC {
   render(){if(this.room == map){this.image.resize(this.size, this.size);image(this.image, this.tileX*tileSize, this.tileY*tileSize);}}
 }
 class Cat extends NPC {constructor() {super(3*tileSize, 3, 3, room1, catImg, catSelectImg, "cat_dialogue");}}
+class Fisherman extends NPC {constructor() {super(2*tileSize, 7, 3, room2, fishermanImg, fishermanSelectImg, "fisherman_dialogue");}}
 class Pig extends NPC {constructor() {super(2*tileSize, 6, 6, room0, pigImg, pigSelectImg, "pig_dialogue");this.feedCount = 0;}}
 class Merchant extends NPC {constructor() {super(3*tileSize, 1, 5, room0, merchantImg, merchantSelectImg, "home_merchant_dialogue");}}
 class Well extends NPC {

@@ -3,7 +3,7 @@ function handleTeletiles(t) {
     if (t === 1) { map = room1; p.y = (room1.length - 2) * tileSize; curImg = barnImg; }
     else if (t === 'o' && map === room1) { map = room0; p.y = tileSize; curImg = homeImg; }
   
-    if (t === 2) { map = room2; p.x = tileSize; }
+    if (t === 2) { map = room2; p.x = tileSize; curImg = rightImg;}
     else if (t === 'o' && map === room2) { map = room0; p.x = (room0[0].length - 2) * tileSize; curImg = homeImg; }
   
     if (t === 3) { map = room3; p.y = tileSize; }
@@ -41,6 +41,16 @@ function plantCrops(cropArray, cropSeedImg, clas){
     if (selectedSlot[2] > 0) { // Check if there are seeds available
       cropArray.push(new clas(tileSize, mouseTile.tileX, mouseTile.tileY, map));
       selectedSlot[2]--; // Use one seed from inventory
+    }
+  }else if(tileHasCrop&&fertilizer>0){
+    for (let i = cropArray.length - 1; i >= 0; i--) {
+      let crop = cropArray[i];
+      // Check if the crop is on the current tile
+      if (crop.tileX === mouseTile.tileX && crop.tileY === mouseTile.tileY) {
+        crop.stage = 2;
+        crop.harvestable = true;
+        break; // Break out of the loop after removing a crop
+      }
     }
   }
 }
@@ -171,4 +181,38 @@ function checkGameState(){
   strokeWeight(1);stroke(0);for(let y = 0; y < map.length; y++) {for (let x = 0; x < map[y].length; x++) {fill(map[y][x] == 'w' ? [200, 200, 200, 0] : [255, 255, 255, 0]);rect(x * tileSize, y * tileSize, tileSize, tileSize);}}
 
   if(state==GAME_STATE)getTileUnderMouse(true);
+}
+
+
+function mouseClicked() {
+  if(!song.isPlaying()){song.play()}
+  if(state===DEATH_STATE){dialogueManager.startDialogue("start_dialogue", character_dialogues["start_dialogue"].death); state=START_STATE; catHealth = 100; coins = 0; map=room0; curImg = homeImg; p.x = map[0].length*tileSize/2-tileSize/2; p.y = map.length*tileSize/2-tileSize/2; p.inventory = [[1, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];}
+  if ((state === DIALOGUE_STATE || state === START_STATE) && dialogueManager.currentDialogue) {
+      if (dialogueManager.currentDialogue.texts) {
+        if (dialogueManager.currentTextIndex < dialogueManager.currentDialogue.texts.length - 1) {
+          // If not the last text, go to next text
+          dialogueManager.nextText();
+        } else {
+          // If it's the last text, check for option selections
+          checkForOptionSelection();
+        }
+      } else {
+        // If there are no multiple texts, check for option selections
+        checkForOptionSelection();
+      }
+  }
+  console.log("click");
+  mouseIsClicked = true;
+  removeCropIfShoveling(wheats);
+  removeCropIfShoveling(carrots);
+  removeCropIfShoveling(potatoes);
+  let mouseTile = getTileUnderMouse();
+  
+  // Check if the clicked tile is plantable ground and the player is in planting mode
+  if (map[mouseTile.tileY][mouseTile.tileX] == 'p' && planting) {
+    plantCrops(wheats, wheatSeedImg, Wheat)
+    plantCrops(carrots, carrotSeedImg, Carrot)
+    plantCrops(potatoes, potatoSeedImg, Potato)
+    
+  }
 }

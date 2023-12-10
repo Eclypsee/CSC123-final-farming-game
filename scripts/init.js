@@ -7,6 +7,7 @@ const DIALOGUE_STATE = 192836;
 const GAME_STATE = 927363;
 const START_STATE = 1928747182;
 const DEATH_STATE = 7812761253;
+const FISH_STATE= 125214500;
 
 let state = START_STATE;
 
@@ -23,7 +24,7 @@ let catHealth = 100;//in percent
 let catDrain = 0.005;
 let coins = 10;
 let fish = 3;
-let fertilizer = 0;
+let fertilizer = 1;
 
 let NPC_dialogue;
 
@@ -47,6 +48,7 @@ function preload() {
     'background':'assets/background.png',
     'homeImg': 'assets/home.png',
     'barnImg': 'assets/barn.png',
+    'rightImg': 'assets/right.png',
     'playerImg': 'assets/player.png',
     'dialogueImg': 'assets/dialogue.png',
     'coinImg': 'assets/coin.png',
@@ -67,7 +69,7 @@ function preload() {
     'youDiedImg': 'assets/dead.png'
   };
   const NPCAssets = [
-    'bee', 'pig', 'merchant', 'well', 'sign', 'cat'
+    'bee', 'pig', 'merchant', 'well', 'sign', 'cat', 'fisherman',
   ];
   const cropAssets = [
     'wheat', 'carrot', 'potato'

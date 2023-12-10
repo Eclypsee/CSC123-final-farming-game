@@ -12,11 +12,13 @@ function setup() {
   pig = new Pig();
   bee = new Bee();
   merchant = new Merchant();
+  fisherman = new Fisherman();
   well = new Well();
   cat = new Cat();
   sr = new lockedSign(8, 4);
   sb = new lockedSign(4, 8);
   sl = new lockedSign(0, 4);
+
   frameRate(60);
   textFont('retro');
 }
@@ -28,44 +30,48 @@ function draw() {
   //checks game state and moves camera
   checkGameState();
 
-  if(state!=START_STATE&&state!=DEATH_STATE){
-  //update crops
-  updateCrop(wheats, p);
-  updateCrop(carrots, p);
-  updateCrop(potatoes, p);
-  //render and collide npcs
-  well.collision();
-  well.render();
-  pig.collision();
-  pig.render();
-  bee.collision();
-  bee.render();
-  merchant.collision();
-  merchant.render();
-  cat.collision();
-  cat.render();
+  if(state==GAME_STATE||state==DIALOGUE_STATE){
+    //update crops
+    updateCrop(wheats, p);
+    updateCrop(carrots, p);
+    updateCrop(potatoes, p);
+    //render and collide npcs
+    well.collision();
+    well.render();
+    pig.collision();
+    pig.render();
+    bee.collision();
+    bee.render();
+    merchant.collision();
+    merchant.render();
+    cat.collision();
+    cat.render();
+    fisherman.render();
+    fisherman.collision();
 
-  sr.collision();
-  sr.render();
-  sb.collision();
-  sb.render();
-  sl.collision();
-  sl.render();
-  
-  //render tools
-  toolIcon('planter');
-  toolIcon('harvester');
-  toolIcon('shoveler');
+    sr.collision();
+    sr.render();
+    sb.collision();
+    sb.render();
+    sl.collision();
+    sl.render();
+    
+    //render tools
+    toolIcon('planter');
+    toolIcon('harvester');
+    toolIcon('shoveler');
 
-  //render health bar/ui etc
-  //drawCurrencyBackground();
-  drawCatHealthBar();
-  drawCoinMeter();
-  drawFishMeter();
-  drawFertilizerMeter();
-  
-  //show player
-  p.show();
+    //render health bar/ui etc
+    //drawCurrencyBackground();
+    drawCatHealthBar();
+    drawCoinMeter();
+    drawFishMeter();
+    drawFertilizerMeter();
+    
+    //show player
+    p.show();
+  }else if(state==FISH_STATE){
+
   }else if(state==DEATH_STATE){
     fill(0,0,0, 220)
     rect(PX-visualViewport.width/2, PY-visualViewport.height/2, visualViewport.width, visualViewport.height);
