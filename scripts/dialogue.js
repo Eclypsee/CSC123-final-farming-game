@@ -7,6 +7,7 @@ let character_dialogues = {
       options: [
         { text: "Enter the farm", nextState: "start", action: () =>{
           state=GAME_STATE; 
+          if(song.isPlaying()){song.stop(); song.play();}
           curImg = homeImg;//initialize crops
           wheat = new Wheat(tileSize, 6, 2, room0);
           wheats.push(wheat);

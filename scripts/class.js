@@ -202,8 +202,8 @@ class Crop {
       image(this.images[this.stage], x, y, this.w, this.w);
   }
 }
-class Wheat extends Crop {constructor(size, tx, ty, r) {super("wheat", size, tx, ty, r, wheatImg, wheatSeedImg, 1000);}}
-class Carrot extends Crop {constructor(size, tx, ty, r) {super("carrot", size, tx, ty, r, carrotImg, carrotSeedImg, 1000);}} 
+class Wheat extends Crop {constructor(size, tx, ty, r) {super("wheat", size, tx, ty, r, wheatImg, wheatSeedImg, 1600);}}
+class Carrot extends Crop {constructor(size, tx, ty, r) {super("carrot", size, tx, ty, r, carrotImg, carrotSeedImg, 1300);}} 
 class Potato extends Crop {constructor(size, tx, ty, r) {super("potato", size, tx, ty, r, potatoImg, potatoSeedImg, 1000);}}
 
 ///////////////////////////////////////////////////  NPC   /////////////////////////////////////////////////////////////////////////////////
