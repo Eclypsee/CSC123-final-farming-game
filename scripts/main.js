@@ -87,6 +87,7 @@ function draw() {
 
   //sets mouse clicked to false each frame for bug fixes
   mouseIsClicked = false;
+  if(!song.isPlaying()){song.play()}
 
 }
 

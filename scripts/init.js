@@ -10,6 +10,8 @@ const DEATH_STATE = 7812761253;
 
 let state = START_STATE;
 
+let song;
+
 let mouseIsClicked = false;
 let planting = false;
 let harvesting = false;
@@ -18,7 +20,7 @@ let shoveling = false;
 let map = room0;
 let tileSize = 150;
 let catHealth = 100;//in percent
-let catDrain = 0.07;
+let catDrain = 0.005;
 let coins = 10;
 let fish = 3;
 let fertilizer = 0;
@@ -40,6 +42,7 @@ let potatoes = [];
 let animatedImages = [];
 
 function preload() {
+  song = loadSound('assets/music.mp3');
   const assets = {
     'background':'assets/background.png',
     'homeImg': 'assets/home.png',
