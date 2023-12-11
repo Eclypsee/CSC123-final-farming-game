@@ -13,6 +13,12 @@ function setup() {
   bee = new Bee();
   merchant = new Merchant();
   fisherman = new Fisherman();
+
+  horsemen1 = new NPC(tileSize*3, 0, 0, room4, horsemenImg, horsemenSelectImg, "horsemen_dialogue");
+  horsemen2 = new NPC(tileSize*3, 5, 0, room4, horsemenImg, horsemenSelectImg, "horsemen_dialogue");
+  horsemen3 = new NPC(tileSize*3, 1, 5, room4, horsemenImg, horsemenSelectImg, "horsemen_dialogue");
+  horsemen4 = new NPC(tileSize*3, 5, 5, room4, horsemenImg, horsemenSelectImg, "horsemen_dialogue");
+
   well = new Well();
   cat = new Cat();
   sr = new lockedSign(8, 4);
@@ -35,27 +41,37 @@ function draw() {
     updateCrop(wheats, p);
     updateCrop(carrots, p);
     updateCrop(potatoes, p);
+
+    if(state!=DIALOGUE_STATE){
     //render and collide npcs
-    well.collision();
+      well.collision();
+      pig.collision();
+      bee.collision();
+      merchant.collision();
+      cat.collision();
+      fisherman.collision();
+      sr.collision();
+      sb.collision();
+      sl.collision();
+      horsemen1.collision();
+      horsemen2.collision();
+      horsemen3.collision();
+      horsemen4.collision();
+    }
+    horsemen1.render();
+    horsemen2.render();
+    horsemen3.render();
+    horsemen4.render();
     well.render();
-    pig.collision();
     pig.render();
-    bee.collision();
     bee.render();
-    merchant.collision();
     merchant.render();
-    cat.collision();
     cat.render();
     fisherman.render();
-    fisherman.collision();
-
-    sr.collision();
-    sr.render();
-    sb.collision();
-    sb.render();
-    sl.collision();
     sl.render();
-    
+    sb.render();
+    sr.render();
+
     //render tools
     toolIcon('planter');
     toolIcon('harvester');

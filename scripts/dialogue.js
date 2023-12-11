@@ -1,5 +1,40 @@
 let PX, PY;
 let character_dialogues = {
+  "trophy_death":{
+    start: {
+      texts: ["achievement: experienced death"],
+      currentTextIndex: 0,
+      options: [{ text: "leave", action: () =>dialogueManager.endDialogue}],
+      },
+  },
+  "trophy_map":{
+    start: {
+      texts: ["achievement: unlocked all signs"],
+      currentTextIndex: 0,
+      options: [{ text: "leave", action: () =>dialogueManager.endDialogue}],
+      },
+  },
+  "trophy_fish":{
+    start: {
+      texts: ["achievement: hold over 5 fish in inventory"],
+      currentTextIndex: 0,
+      options: [{ text: "leave", action: () =>dialogueManager.endDialogue}],
+      },
+  },
+  "trophy_dirt":{
+    start: {
+      texts: ["achievement: hold over 3 fertilizer in inventory"],
+      currentTextIndex: 0,
+      options: [{ text: "leave", action: () =>dialogueManager.endDialogue}],
+      },
+  },
+  "trophy_all":{
+    start: {
+      texts: ["achievement: unlocked all achievements"],
+      currentTextIndex: 0,
+      options: [{ text: "leave", action: () =>dialogueManager.endDialogue}],
+      },
+  },
   "start_dialogue":{
     start: {
       texts: ["Welcome to Farm Farmland\nWe are so much better than other farming games\n",],
@@ -50,7 +85,7 @@ let character_dialogues = {
           { text: "leave", action: () =>dialogueManager.endDialogue}],
       },
       talk: {
-        texts: ["hello","hello","goodbye"],
+        texts: ["hello","oof","goodbye"],
         currentTextIndex: 0,
         options: [
           { text: "leave", action: () =>dialogueManager.endDialogue}],
@@ -70,6 +105,13 @@ let character_dialogues = {
             if(k==5){fish++;let asdf = new animateImage(fishImg)}
           }
         }},{ text: "leave", action: () =>dialogueManager.endDialogue}],
+        },
+    },
+    "horsemen_dialogue":{
+      start: {
+        texts: ["Greetings, mortal.", "I am known as one of the Four,", "a keeper of balance in this world.","I am a harbinger of change,", "a force as ancient as time itself.", "In your realm,\n I watch over the cycles of growth and decay."],
+        currentTextIndex: 0,
+        options: [{ text: "leave", action: () =>dialogueManager.endDialogue}],
         },
     },
     "bee_dialogue":{

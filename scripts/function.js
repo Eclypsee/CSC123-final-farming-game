@@ -6,10 +6,10 @@ function handleTeletiles(t) {
     if (t === 2) { map = room2; p.x = tileSize; curImg = rightImg;}
     else if (t === 'o' && map === room2) { map = room0; p.x = (room0[0].length - 2) * tileSize; curImg = homeImg; }
   
-    if (t === 3) { map = room3; p.y = tileSize; }
+    if (t === 3) { map = room3; p.y = tileSize; curImg = bottomImg;}
     else if (t === 'o' && map === room3) { map = room0; p.y = (room0.length - 2) * tileSize; curImg = homeImg; }
   
-    if (t === 4) { map = room4; p.x = (room4[0].length - 2) * tileSize; }
+    if (t === 4) { map = room4; p.x = (room4[0].length - 2) * tileSize; curImg = leftImg}
     else if (t === 'o' && map === room4) { map = room0; p.x = tileSize; curImg = homeImg; }
 }
   
@@ -47,7 +47,9 @@ function plantCrops(cropArray, cropSeedImg, clas){
       let crop = cropArray[i];
       // Check if the crop is on the current tile
       if (crop.tileX === mouseTile.tileX && crop.tileY === mouseTile.tileY) {
+        fertilizer--;
         crop.stage = 2;
+        crop.timePlanted = -999999;
         crop.harvestable = true;
         break; // Break out of the loop after removing a crop
       }

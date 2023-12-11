@@ -22,7 +22,7 @@ let map = room0;
 let tileSize = 150;
 let catHealth = 100;//in percent
 let catDrain = 0.005;
-let coins = 10;
+let coins = 30;
 let fish = 3;
 let fertilizer = 1;
 
@@ -37,6 +37,11 @@ let sb;
 let sl;
 let merchant;//merchant
 let well;
+let fisherman;
+let horsemen1;
+let horsemen2;
+let horsemen3;
+let horsemen4;
 let wheats = [];
 let carrots = [];
 let potatoes = [];
@@ -49,6 +54,8 @@ function preload() {
     'homeImg': 'assets/home.png',
     'barnImg': 'assets/barn.png',
     'rightImg': 'assets/right.png',
+    'leftImg': 'assets/left.png',
+    'bottomImg': 'assets/bottom.png',
     'playerImg': 'assets/player.png',
     'dialogueImg': 'assets/dialogue.png',
     'coinImg': 'assets/coin.png',
@@ -66,10 +73,18 @@ function preload() {
     'catIconImg': 'assets/catIcon.png',
     'healthGainedImg': 'assets/catFed.png',
     'landBoughtImg': 'assets/landbought.png',
-    'youDiedImg': 'assets/dead.png'
+    'youDiedImg': 'assets/dead.png',
   };
+  // const TrophyAssets = [
+  //   'all','fish','allmaps','death','fertilier',
+  // ];
+  // Load trophy assets
+  // TrophyAssets.forEach(t => {
+  //   window[t + 'trophyImg'] = loadImage(`assets/trophy/${t}.png`);
+  //   window[t + 'trophyLockedImg'] = loadImage(`assets/trophy/${t}_lock.png`);
+  // });
   const NPCAssets = [
-    'bee', 'pig', 'merchant', 'well', 'sign', 'cat', 'fisherman',
+    'bee', 'pig', 'merchant', 'well', 'sign', 'cat', 'fisherman', 'horsemen'
   ];
   const cropAssets = [
     'wheat', 'carrot', 'potato'

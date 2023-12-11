@@ -202,9 +202,9 @@ class Crop {
       image(this.images[this.stage], x, y, this.w, this.w);
   }
 }
-class Wheat extends Crop {constructor(size, tx, ty, r) {super("wheat", size, tx, ty, r, wheatImg, wheatSeedImg, 3000);}}
-class Carrot extends Crop {constructor(size, tx, ty, r) {super("carrot", size, tx, ty, r, carrotImg, carrotSeedImg, 2000);}} 
-class Potato extends Crop {constructor(size, tx, ty, r) {super("potato", size, tx, ty, r, potatoImg, potatoSeedImg, 1000);}}
+class Wheat extends Crop {constructor(size, tx, ty, r) {super("wheat", size, tx, ty, r, wheatImg, wheatSeedImg, 600);}}
+class Carrot extends Crop {constructor(size, tx, ty, r) {super("carrot", size, tx, ty, r, carrotImg, carrotSeedImg, 450);}} 
+class Potato extends Crop {constructor(size, tx, ty, r) {super("potato", size, tx, ty, r, potatoImg, potatoSeedImg, 300);}}
 
 ///////////////////////////////////////////////////  NPC   /////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -299,6 +299,15 @@ class lockedSign extends NPC {
     }
   }
   render(){if(this.room==map&&this.isLocked){this.image.resize(this.size, this.size);image(this.image, this.tileX * tileSize,this.tileY*tileSize-tileSize*0.);}}
+}
+
+class Trophy extends NPC {
+  constructor(tx, ty, dialogue, img, unlockedImg) {
+    super(tileSize, tx, ty, room0, img, img, dialogue);
+    this.isLocked = true;
+    this.unlockedImg = unlockedImg;
+  }
+  render(){if(!this.isLocked){this.image = this.unlockedImg};if(this.room == map){this.image.resize(this.size, this.size);image(this.image, this.tileX*tileSize, this.tileY*tileSize);}}
 }
 
 class animateImage{
