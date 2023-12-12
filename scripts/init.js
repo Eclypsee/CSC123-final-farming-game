@@ -74,6 +74,8 @@ function preload() {
     'healthGainedImg': 'assets/catFed.png',
     'landBoughtImg': 'assets/landbought.png',
     'youDiedImg': 'assets/dead.png',
+    'waterTextureImg': 'assets/water.jpg',
+    'netImg':'assets/net.png',
   };
   // const TrophyAssets = [
   //   'all','fish','allmaps','death','fertilier',

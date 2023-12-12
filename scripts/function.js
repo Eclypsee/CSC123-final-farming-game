@@ -171,7 +171,7 @@ function updateCrop(crops, player) {
 }
 
 function checkGameState(){
-  //move MUST be before translate
+  if(state!=FISH_STATE){//move MUST be before translate
   if(state == GAME_STATE){
     p.move();
   }
@@ -182,7 +182,7 @@ function checkGameState(){
   image(curImg, 0, 0);
   strokeWeight(1);stroke(0);for(let y = 0; y < map.length; y++) {for (let x = 0; x < map[y].length; x++) {fill(map[y][x] == 'w' ? [200, 200, 200, 0] : [255, 255, 255, 0]);rect(x * tileSize, y * tileSize, tileSize, tileSize);}}
 
-  if(state==GAME_STATE)getTileUnderMouse(true);
+  if(state==GAME_STATE)getTileUnderMouse(true);}
 }
 
 

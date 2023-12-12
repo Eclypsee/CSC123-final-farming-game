@@ -70,7 +70,7 @@ let character_dialogues = {
       texts: ["Do you wish to try your hand at fishing?",],
       currentTextIndex: 0,
       options: [
-        { text: "fish(cost 1 coin)", nextState: "start", action: () =>{if(coins>0){coins--;}}},
+        { text: "fish(cost 1 coin)", nextState: "start", action: () =>{if(coins>0){coins--;state=FISH_STATE; fishGameSetup();}}},
         { text: "leave",  action: () =>dialogueManager.endDialogue},
         ],
     },

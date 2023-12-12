@@ -31,7 +31,9 @@ function setup() {
 
 ///////////draw///////////////////
 function draw() {
+  if(state!=FISH_STATE){
   resizeCanvas(visualViewport.width, visualViewport.height);
+  }
   
   //checks game state and moves camera
   checkGameState();
@@ -87,7 +89,7 @@ function draw() {
     //show player
     p.show();
   }else if(state==FISH_STATE){
-
+    fishGameLoop();
   }else if(state==DEATH_STATE){
     fill(0,0,0, 220)
     rect(PX-visualViewport.width/2, PY-visualViewport.height/2, visualViewport.width, visualViewport.height);
@@ -114,3 +116,96 @@ function draw() {
 }
 
 let hasrunstart=false;
+
+
+
+//fishing game
+let hook, fish2, score;
+let curYInc;
+let speedx;
+let maxspeedx;
+
+function fishGameSetup() {
+  createCanvas(visualViewport.width, visualViewport.height);
+  hook = createHook();
+  fish2 = createFish();
+  score = 0;
+  speedx = 0;
+  maxspeedx = 8;
+  curYInc=2;
+}
+
+function fishGameLoop() {
+  curImg = waterTextureImg;
+  curImg.resize(visualViewport.width, visualViewport.height);
+  image(curImg, 0, 0);
+  // Display hook and fish
+  displayHook(hook);
+  displayFish(fish2);
+
+  // Move fish
+  moveFish(fish2);
+
+  // Check for collision
+  if (checkCollision(hook, fish2)) {
+    fish++;
+    let fff = new animateImage(fishImg);
+    curImg = rightImg;
+    state = GAME_STATE;
+  }
+  if(hook.x<mouseX&&speedx<maxspeedx){
+    speedx+=1;
+  }else if(hook.x>mouseX&&speedx>-1*maxspeedx){
+    speedx-=1;
+  }
+  hook.x+=speedx;
+}
+
+function createHook() {
+  return {
+    x: width / 2,
+    y: height - 20,
+    size: 40,
+  };
+}
+
+function createFish() {
+  return {
+    x: random(width),
+    y: random(height / 3),
+    size: 100,
+  };
+}
+
+function displayHook(hook) {
+  fill(150, 75, 0);
+  image(netImg, hook.x-hook.size*3/2, hook.y-hook.size*3/1.5, hook.size*3, hook.size*3)
+  // triangle(hook.x - hook.size / 2, hook.y, hook.x + hook.size / 2, hook.y, hook.x, hook.y - hook.size * 2);
+}
+
+function displayFish(fish2) {
+  fill(0, 0, 255);
+  image(fishImg, fish2.x-fish2.size/2, fish2.y-fish2.size/2, fish2.size, fish2.size)
+  //ellipse(fish2.x, fish2.y, fish2.size, fish2.size / 2);
+}
+
+function moveFish(fish2) {
+  fish2.x*=random(0.96, 1.04);
+  curYInc*=1.01;
+  fish2.y+=curYInc;
+  if(fish2.x>width){
+    fish2.x=width-40;
+  }if(fish2.x<0){
+    fish2.x=40;
+  }
+  if (fish2.y > height) {
+    curImg = rightImg;
+    state=GAME_STATE;
+  }
+}
+
+function checkCollision(hook, fish2) {
+  // Check if the distance between hook and fish is less than the sum of their radii
+  let distance = dist(hook.x, hook.y, fish2.x, fish2.y);
+  return distance < hook.size / 2 + fish2.size / 2;
+}
