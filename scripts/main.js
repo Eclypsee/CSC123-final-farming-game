@@ -14,10 +14,10 @@ function setup() {
   merchant = new Merchant();
   fisherman = new Fisherman();
 
-  horsemen1 = new NPC(tileSize*3, 0, 0, room4, horsemenImg, horsemenSelectImg, "horsemen_dialogue");
-  horsemen2 = new NPC(tileSize*3, 5, 0, room4, horsemenImg, horsemenSelectImg, "horsemen_dialogue");
-  horsemen3 = new NPC(tileSize*3, 1, 5, room4, horsemenImg, horsemenSelectImg, "horsemen_dialogue");
-  horsemen4 = new NPC(tileSize*3, 5, 5, room4, horsemenImg, horsemenSelectImg, "horsemen_dialogue");
+  horsemen1 = new NPC(tileSize*2, 1, 1, room4, horsemenImg, horsemenSelectImg, "horsemen_dialogue");
+  horsemen2 = new NPC(tileSize*2, 6, 1, room4, horsemenImg, horsemenSelectImg, "horsemen_dialogue");
+  horsemen3 = new NPC(tileSize*2, 1, 6, room4, horsemenImg, horsemenSelectImg, "horsemen_dialogue");
+  horsemen4 = new NPC(tileSize*2, 6, 6, room4, horsemenImg, horsemenSelectImg, "horsemen_dialogue");
 
   well = new Well();
   cat = new Cat();
