@@ -130,7 +130,7 @@ let character_dialogues = {
     },
     "pig_dialogue":{
       start: {
-        texts: ["This is a pig in a pig pen", "Why are you talking to a pig?", "Feed to get fertilizer?"],
+        texts: ["This is a pig in a pig pen", "Why are you talking to a pig?", "Feed 3 crops, get fertilizer?"],
         currentTextIndex: 0,
         options: [{ text: "feed", nextState: "feed"}, { text: "leave", action: () =>dialogueManager.endDialogue}],
         },
