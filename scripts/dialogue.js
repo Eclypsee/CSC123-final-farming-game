@@ -85,7 +85,7 @@ let character_dialogues = {
           { text: "leave", action: () =>dialogueManager.endDialogue}],
       },
       talk: {
-        texts: ["hello","oof","goodbye"],
+        texts: ["hello good sir", "please feed me", "if you dont...","...","something really bad is going to happen..."],
         currentTextIndex: 0,
         options: [
           { text: "leave", action: () =>dialogueManager.endDialogue}],
@@ -148,17 +148,15 @@ let character_dialogues = {
     "home_merchant_dialogue":{
         start: {
         texts: [
-            "Greetings, traveler! Welcome to my humble shop.",
-            "What can I do for you today?"
+            "Greetings, traveler! Welcome to my humble shop."
         ],
         currentTextIndex: 0,
         options: [
-            { text: "What do you have for sale?", nextState: "buy" },
-            { text: "How do I get more land?", nextState: "purchaseLand" },
-            { text: "I'd like to sell some items.", nextState: "sell" },
+            { text: "Buy items from merchant", nextState: "buy" },
+            { text: "Get more land?", nextState: "purchaseLand" },
+            { text: "Sell items to merchant", nextState: "sell" },
             { text: "Tell me about yourself.", nextState: "aboutMerchant" },
-            { text: "Just looking around, thanks.", nextState: "browse" },
-            { text: "Goodbye.", nextState: "end" }
+            { text: "Goodbye.", action: () =>dialogueManager.endDialogue}
         ]
         },
         buy: {
@@ -168,7 +166,7 @@ let character_dialogues = {
             { text: "Buy potato seeds 3 coin", nextState: "buy", action: () => {if(coins>=3){p.addToInventory(potatoSeedImg, 1);coins-=3; let asdf = new animateImage(potatoSeedImg)}}},
             { text: "Buy wheat seeds 3 coin", nextState: "buy", action: () => {if(coins>=3){p.addToInventory(wheatSeedImg, 1);coins-=3; let asdf = new animateImage(wheatSeedImg)}}},
             { text: "Buy fish for 6 coin", nextState: "buy", action: () => {if(coins>=6){fish++;coins-=6; let asdf = new animateImage(fishImg)}}},
-            { text: "Goodbye", nextState: "end" }
+            { text: "back", nextState: "start" }
         ]
         },
         purchaseLand: {
@@ -177,7 +175,7 @@ let character_dialogues = {
                 { text: "Buy east plot", nextState: "purchaseLand", action: () => {if(sr.isLocked&&coins>=10) {coins -= 10;room0[4][8] = 2;sr.isLocked = false;let asdf = new animateImage(landBoughtImg)}}},
                 { text: "Buy south plot", nextState: "purchaseLand", action: () => {if(sb.isLocked&&coins>=10) {coins -= 10;room0[8][4] = 3;sb.isLocked = false;let asdf = new animateImage(landBoughtImg)}}},
                 { text: "Buy west plot", nextState: "purchaseLand", action: () => {if(sl.isLocked&&coins>=10) {coins -= 10;room0[4][0] = 4;sl.isLocked = false;let asdf = new animateImage(landBoughtImg)}}},                
-                { text: "Goodbye", nextState: "end" }
+                { text: "back", nextState: "start" }
             ]
             },
         sell: {
@@ -186,7 +184,7 @@ let character_dialogues = {
             { text: "Sell carrot to gain 1 coin", nextState: "sell", action: () => {p.inventory.forEach(slot => {if (slot[1] === carrotImg && slot[2]>0) {slot[2]--;coins+=1;}});} },
             { text: "Sell potato to gain 1 coin", nextState: "sell", action: () => {p.inventory.forEach(slot => {if (slot[1] === potatoImg && slot[2]>0) {slot[2]--;coins+=1;}});}},
             { text: "Sell wheat to gain 1 coin", nextState: "sell", action: () => {p.inventory.forEach(slot => {if (slot[1] === wheatImg && slot[2]>0) {slot[2]--;coins+=1;}}); }},
-            { text: "Goodbye", nextState: "end" }
+            { text: "back", nextState: "start" }
         ]
         },
         aboutMerchant: {
@@ -197,17 +195,8 @@ let character_dialogues = {
         ],
         currentTextIndex: 0,
         options: [
-          { text: "Goodbye", nextState: "end" }
+          { text: "back", nextState: "start" }
         ]
-        },
-        browse: {
-        text: "Feel free to look around. Let me know if anything catches your eye.",
-        options: [{ text: "Return to previous options", nextState: "start" }]
-        
-        },
-        end: {
-        text: "Thank you for stopping by. Safe travels!",
-        options: [{ text: "leave", action: () =>dialogueManager.endDialogue}],
         },
     }
 };
