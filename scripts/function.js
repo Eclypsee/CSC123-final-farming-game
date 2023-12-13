@@ -147,15 +147,14 @@ function toolIcon(toolType) {
   let selectImg = toolType === 'planter' ? planterSelectImg : toolType === 'harvester' ? harvesterSelectImg : shovelerSelectImg;
   let normalImg = toolType === 'planter' ? planterImg : toolType === 'harvester' ? harvesterImg : shovelerImg;
 
+  let img = isSelected ? selectImg : normalImg;
+  img.resize(s, s);
+  image(img, x, y);
   if (mouseIsClicked && worldX > x && worldX < x + s && worldY > y && worldY < y + s) {
     planting = toolType === 'planter' ? !planting : false;
     harvesting = toolType === 'harvester' ? !harvesting : false;
     shoveling = toolType === 'shoveler' ? !shoveling : false;
   }
-
-  let img = isSelected ? selectImg : normalImg;
-  img.resize(s, s);
-  image(img, x, y);
 }
 
 function updateCrop(crops, player) {
