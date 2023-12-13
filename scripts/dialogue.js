@@ -238,6 +238,8 @@ let dialogueManager = {
     this.currentNPC = null;
     this.currentTextIndex = 0;
     state = GAME_STATE;
+    justEndedDialogue = true;
+    setTimeout(() => { justEndedDialogue = false; }, 350); // Set to false after 200ms
   },
 
   getCurrentText: function() {

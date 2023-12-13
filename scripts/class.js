@@ -220,7 +220,7 @@ class NPC {
     this.d = npcdialogue;
   }
   collision(){
-    if(this.room == map){
+    if(this.room == map&&!justEndedDialogue){
       let mouseTile = getTileUnderMouse(false);
       // Check if the tile under the mouse is the same as the wheat's tile
       if (mouseTile.tileX >= this.tileX&&mouseTile.tileX < this.tileX+this.size/tileSize&&mouseTile.tileY >= this.tileY&&mouseTile.tileY < this.tileY+this.size/tileSize&&state!=DIALOGUE_STATE) {
@@ -246,7 +246,7 @@ class Well extends NPC {
     super(3*tileSize, 1, 1, room0, wellImg, wellSelectImg, null);
   }
   collision(){
-    if(this.room == map){
+    if(this.room == map&&!justEndedDialogue){
       let mouseTile = getTileUnderMouse(false);
       // Check if the tile under the mouse is the same as the wheat's tile
       if (mouseTile.tileX >= this.tileX&&mouseTile.tileX < this.tileX-1+this.size/tileSize&&mouseTile.tileY >= this.tileY&&mouseTile.tileY < this.tileY+this.size/tileSize&&state!=DIALOGUE_STATE) {
@@ -286,7 +286,7 @@ class lockedSign extends NPC {
     this.isLocked = true;
   }
   collision(){
-    if(this.room == map&&this.isLocked){
+    if(this.room == map&&this.isLocked&&!justEndedDialogue){
     let mouseTile = getTileUnderMouse(false);
     if (mouseTile.tileX === this.tileX&&mouseTile.tileY === this.tileY&&state!=DIALOGUE_STATE) {
       this.image = signSelectImg;

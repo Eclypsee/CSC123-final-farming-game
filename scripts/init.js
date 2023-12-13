@@ -13,6 +13,8 @@ let state = START_STATE;
 
 let song;
 
+let justEndedDialogue = false;
+
 let mouseIsClicked = false;
 let planting = false;
 let harvesting = false;
