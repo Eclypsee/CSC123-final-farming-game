@@ -87,7 +87,7 @@ function drawCatHealthBar(){
   catHealth = constrain(catHealth, 0, 100)
   catIconImg.resize(tileSize, tileSize)
   image(catIconImg, x-tileSize/2, y-tileSize/1.5);
-  if(catHealth<=1){
+  if(catHealth<=5){
     state=DEATH_STATE;
   }
 }
@@ -188,7 +188,7 @@ function checkGameState(){
 
 function mouseClicked() {
   if(!song.isPlaying()){song.play()}
-  if(state===DEATH_STATE){dialogueManager.startDialogue("start_dialogue", character_dialogues["start_dialogue"].death); state=START_STATE; catHealth = 100; coins = 0; map=room0; curImg = homeImg; p.x = map[0].length*tileSize/2-tileSize/2; p.y = map.length*tileSize/2-tileSize/2; p.inventory = [[1, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];}
+  if(state===DEATH_STATE){dialogueManager.startDialogue("start_dialogue", character_dialogues["start_dialogue"].death); state=START_STATE; catHealth = 100; coins = 0; map=room0;p.x = map[0].length*tileSize/2-tileSize/2; p.y = map.length*tileSize/2-tileSize/2; p.inventory = [[1, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];}
   if ((state === DIALOGUE_STATE || state === START_STATE) && dialogueManager.currentDialogue) {
       if (dialogueManager.currentDialogue.texts) {
         if (dialogueManager.currentTextIndex < dialogueManager.currentDialogue.texts.length - 1) {

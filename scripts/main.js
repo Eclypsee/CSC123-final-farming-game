@@ -94,6 +94,7 @@ function draw() {
     fill(0,0,0, 220)
     rect(PX-visualViewport.width/2, PY-visualViewport.height/2, visualViewport.width, visualViewport.height);
     image(youDiedImg, PX-visualViewport.width/2, PY-visualViewport.height/2, visualViewport.width, visualViewport.height);
+    curImg = deathBackImg;
   }
   
   //checks dialogue state and does all that
