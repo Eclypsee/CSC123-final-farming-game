@@ -24,7 +24,7 @@ let map = room0;
 let tileSize = 150;
 let catHealth = 100;//in percent
 let catDrain = 0.01;
-let coins = 30;
+let coins = 9;
 let fish = 3;
 let fertilizer = 1;
 
